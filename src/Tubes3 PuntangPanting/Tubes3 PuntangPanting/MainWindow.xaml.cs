@@ -11,8 +11,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using MySql.Data;
+using System.Drawing;
 using MySql.Data.MySqlClient;
-using Tubes3_PuntangPanting.AsciiConverter;
 
 namespace Tubes3_PuntangPanting
 {
@@ -79,25 +79,28 @@ namespace Tubes3_PuntangPanting
             {
                 string filePath = openFileDialog.FileName;
                 BitmapImage bitmap = new BitmapImage(new Uri(filePath));
+                Bitmap bp = new Bitmap(filePath);
                 image1.Source = bitmap;
-                imgUpload = bitmap;
+                if (bp != null)
+                {
+                imgUpload = bp;
+                }
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool isKMPSelected = tbRight.IsChecked ?? false; 
+            bool isKMPSelected = tbRight.IsChecked ?? false;
 
-            // Add ascii converter to convert the uploaded image 
+            string ascii = AsciiConverter.ImageToAsciiImage(imgUpload);
 
-            // Save the ascii result in variable
-
-            // Get data from database sidik_jari
+            List<string> asciiData = db.ReadAsciiData();
 
 
             if (isKMPSelected)
             {
                 // Looping to compare all ascii result to ascii berkas_citra in database
+                
                 // If already get the same exact value return and stop iterations
                 // If dont get the result also calculate the precentage similarity
                 MessageBox.Show("KMP is selected.");

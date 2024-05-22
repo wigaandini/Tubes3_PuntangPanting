@@ -106,6 +106,75 @@ namespace Tubes3_PuntangPanting
             return ExecuteQuery(query);
         }
 
+        public List<string> ReadAsciiData()
+        {
+            string query = "SELECT berkas_citra FROM sidik_jari";
+            DataTable dataTable = ExecuteQuery(query);
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return new List<string>();
+            }
+
+            List<string> dataList = new List<string>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string value = row["berkas_citra"].ToString();
+                dataList.Add(value);
+            }
+
+            return dataList;
+        }
+        public DataTable ReadNameByBerkas(string berkas)
+        {
+            try
+            {
+                string query = "SELECT nama FROM sidik_jari WHERE berkas_citra = @berkas";
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@berkas", berkas);
+
+            if (cmd != null)
+            {
+                return ExecuteQuery(cmd);
+            }
+            else
+            {
+                Console.WriteLine("Error: MySqlCommand is null.");
+                return new DataTable();
+            }
+        }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return new DataTable(); 
+    }
+}
+
+        public DataTable ReadBiodataByName(string nama)
+        {
+            try
+            {
+                string query = "SELECT * FROM biodata WHERE nama = @nama";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@nama", nama);
+
+                if (cmd != null) 
+                {
+                    return ExecuteQuery(cmd);
+                }
+                else
+                {
+                    Console.WriteLine("Error: MySqlCommand is null.");
+                    return new DataTable(); 
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return new DataTable();
+            }
+        }
+
         private DataTable ExecuteQuery(string query)
         {
             DataTable dt = new DataTable();
