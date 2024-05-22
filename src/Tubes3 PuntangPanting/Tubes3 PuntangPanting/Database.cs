@@ -199,8 +199,6 @@ namespace Tubes3_PuntangPanting
             }
         }
 
-
-
         private DataTable ExecuteQuery(string query)
         {
             DataTable dt = new DataTable();
