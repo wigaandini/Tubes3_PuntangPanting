@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tubes3 PuntangPanting", "Tubes3 PuntangPanting\Tubes3 PuntangPanting.csproj", "{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EB3BA3C-CA4B-4008-A9F4-55A2BF00ABF2}
+	EndGlobalSection
+EndGlobal
