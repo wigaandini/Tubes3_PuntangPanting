@@ -1788,32 +1788,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fairu\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\WIGA\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
+      "projectUniqueName": "D:\\ITB\\Tugas Stima\\Tubes\\Tubes 3\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
       "projectName": "Tubes3 PuntangPanting",
-      "projectPath": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
-      "packagesPath": "C:\\Users\\fairu\\.nuget\\packages\\",
-      "outputPath": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\obj\\",
+      "projectPath": "D:\\ITB\\Tugas Stima\\Tubes\\Tubes 3\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
+      "packagesPath": "C:\\Users\\WIGA\\.nuget\\packages\\",
+      "outputPath": "D:\\ITB\\Tugas Stima\\Tubes\\Tubes 3\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\fairu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\WIGA\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1865,7 +1857,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

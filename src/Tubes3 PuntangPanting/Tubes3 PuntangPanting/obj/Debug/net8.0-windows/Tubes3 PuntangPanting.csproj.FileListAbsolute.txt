@@ -35,3 +35,40 @@ D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.genruntimeconfig.cache
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\ref\Tubes3 PuntangPanting.dll
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\System.Drawing.Common.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.csproj.AssemblyReference.cache
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\MainWindow.g.cs
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\App.g.cs
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.cache
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.lref
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\refint\Tubes3 PuntangPanting.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.pdb
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.exe
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.deps.json
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.runtimeconfig.json
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.pdb
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Google.Protobuf.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\K4os.Compression.LZ4.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\K4os.Compression.LZ4.Streams.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\K4os.Hash.xxHash.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\MySql.Data.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\System.Drawing.Common.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\ZstdSharp.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\comerr64.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\gssapi64.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\k5sprt64.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\krb5_64.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\krbcc64.dll
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\MainWindow.baml
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.g.resources
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.GeneratedMSBuildEditorConfig.editorconfig
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.AssemblyInfoInputs.cache
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.AssemblyInfo.cs
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.csproj.CoreCompileInputs.cache
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.sourcelink.json
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 P.26E31351.Up2Date
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.genruntimeconfig.cache
+D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\ref\Tubes3 PuntangPanting.dll

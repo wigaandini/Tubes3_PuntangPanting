@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using MySql.Data;
 using MySql.Data.MySqlClient;
-using Tubes3_PuntangPanting.AsciiConverter;
+
 
 namespace Tubes3_PuntangPanting
 {
@@ -23,7 +23,6 @@ namespace Tubes3_PuntangPanting
     public partial class MainWindow : Window
     {
         private Database db;
-        private Bitmap imgUpload;
 
         public MainWindow()
         {
@@ -80,7 +79,6 @@ namespace Tubes3_PuntangPanting
                 string filePath = openFileDialog.FileName;
                 BitmapImage bitmap = new BitmapImage(new Uri(filePath));
                 image1.Source = bitmap;
-                imgUpload = bitmap;
             }
         }
 
