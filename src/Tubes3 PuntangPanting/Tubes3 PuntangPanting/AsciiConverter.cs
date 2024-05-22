@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Media.Imaging;
+
 namespace Tubes3_PuntangPanting
 {
     class AsciiConverter

@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using Tubes3_PuntangPanting.AsciiConverter;
 
 namespace Tubes3_PuntangPanting
 {
@@ -22,11 +23,10 @@ namespace Tubes3_PuntangPanting
     public partial class MainWindow : Window
     {
         private Database db;
+        private Bitmap imgUpload;
 
         public MainWindow()
         {
-           
-
             string customServer = "Fairuz";
             string customUser = "root";
             string customDatabase = "stima";
@@ -80,24 +80,37 @@ namespace Tubes3_PuntangPanting
                 string filePath = openFileDialog.FileName;
                 BitmapImage bitmap = new BitmapImage(new Uri(filePath));
                 image1.Source = bitmap;
+                imgUpload = bitmap;
             }
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             bool isKMPSelected = tbRight.IsChecked ?? false; 
 
+            // Add ascii converter to convert the uploaded image 
+
+            // Save the ascii result in variable
+
+            // Get data from database sidik_jari
+
+
             if (isKMPSelected)
             {
-                // Kode untuk jika KMP dipilih
+                // Looping to compare all ascii result to ascii berkas_citra in database
+                // If already get the same exact value return and stop iterations
+                // If dont get the result also calculate the precentage similarity
                 MessageBox.Show("KMP is selected.");
             }
             else
             {
-                // Kode untuk jika BM dipilih
+                // Looping to compare all ascii result to ascii berkas_citra in database
+                // If already get the same exact value return and stop iterations
+                // If dont get the result also calculate the precentage similarity
                 MessageBox.Show("BM is selected.");
             }
+            // Add regex validation to compare the result name from database between table
+            // Return all information biodata
         }
 
     }
