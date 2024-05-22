@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\textprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\textprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\asciiconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,6 +17,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\textprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|solutionrelative:tubes3 puntangpanting\\textprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7DCDFB51-A976-4A3E-94E8-1EA0CF07DC58}|Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj|d:\\kuliah\\tubes3_puntangpanting\\src\\tubes3 puntangpanting\\tubes3 puntangpanting\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
@@ -58,7 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "AsciiConverter.cs",
               "DocumentMoniker": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\AsciiConverter.cs",
               "RelativeDocumentMoniker": "Tubes3 PuntangPanting\\AsciiConverter.cs",
@@ -71,20 +71,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "TextProcessing.cs",
               "DocumentMoniker": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\TextProcessing.cs",
               "RelativeDocumentMoniker": "Tubes3 PuntangPanting\\TextProcessing.cs",
               "ToolTip": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\TextProcessing.cs",
               "RelativeToolTip": "Tubes3 PuntangPanting\\TextProcessing.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "ViewState": "AQIAAB4AAAAAAAAAAAA5wCoAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-22T11:39:11.996Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "Tubes3 PuntangPanting\\AssemblyInfo.cs",
@@ -97,13 +97,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Database.cs",
               "DocumentMoniker": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Database.cs",
               "RelativeDocumentMoniker": "Tubes3 PuntangPanting\\Database.cs",
-              "ToolTip": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Database.cs*",
-              "RelativeToolTip": "Tubes3 PuntangPanting\\Database.cs*",
-              "ViewState": "AQIAACMAAAAAAAAAAAAIwC4AAAAmAAAA",
+              "ToolTip": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Database.cs",
+              "RelativeToolTip": "Tubes3 PuntangPanting\\Database.cs",
+              "ViewState": "AQIAAKsAAAAAAAAAAADwv8gAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-22T07:35:31.675Z",
               "EditorCaption": ""
@@ -122,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Tubes3 PuntangPanting\\MainWindow.xaml",
@@ -134,13 +134,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Tubes3 PuntangPanting\\MainWindow.xaml.cs",
               "ToolTip": "D:\\Kuliah\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\MainWindow.xaml.cs",
               "RelativeToolTip": "Tubes3 PuntangPanting\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAuwG0AAAAQAAAA",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAmwGkAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-22T07:03:02.637Z",
               "EditorCaption": ""

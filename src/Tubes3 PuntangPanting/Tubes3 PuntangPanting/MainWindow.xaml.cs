@@ -112,6 +112,27 @@ namespace Tubes3_PuntangPanting
                 // If dont get the result also calculate the precentage similarity
                 MessageBox.Show("BM is selected.");
             }
+               string sameName = db.ReadNameByBerkas("");
+            string foundName = "";
+                List<string> arrName = db.ReadNameLeft();
+                foreach (string name in arrName)
+            {
+                bool isSame = TextProcessing.CompareWord(sameName, name);
+                if (isSame)
+                {
+                    foundName = name;
+                    break;
+                }
+               
+            }
+            DataTable resData = new DataTable();
+                if (foundName != "")
+            {
+                resData = db.ReadBiodataByName(foundName);
+                
+            }
+
+
             // Add regex validation to compare the result name from database between table
             // Return all information biodata
         }

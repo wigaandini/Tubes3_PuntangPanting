@@ -125,30 +125,56 @@ namespace Tubes3_PuntangPanting
 
             return dataList;
         }
-        public DataTable ReadNameByBerkas(string berkas)
+
+        public List<string> ReadNameLeft()
+        {
+            string query = "SELECT nama FROM biodata";
+            DataTable dataTable = ExecuteQuery(query);
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return new List<string>();
+            }
+
+            List<string> dataList = new List<string>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string value = row["nama"].ToString();
+                dataList.Add(value);
+            }
+
+            return dataList;
+        }
+        public string ReadNameByBerkas(string berkas)
         {
             try
             {
                 string query = "SELECT nama FROM sidik_jari WHERE berkas_citra = @berkas";
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@berkas", berkas);
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@berkas", berkas);
 
-            if (cmd != null)
-            {
-                return ExecuteQuery(cmd);
+                DataTable result = new DataTable();
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    adapter.Fill(result);
+                }
+
+                if (result.Rows.Count > 0)
+                {
+                    object nameObj = result.Rows[0]["nama"];
+                    return nameObj?.ToString() ?? string.Empty;
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
-            else
-            {
-                Console.WriteLine("Error: MySqlCommand is null.");
-                return new DataTable();
-            }
-        }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error executing query: {ex.Message}");
-                return new DataTable(); 
-    }
-}
+                return string.Empty;
+            }
+        }
 
         public DataTable ReadBiodataByName(string nama)
         {
@@ -158,22 +184,22 @@ namespace Tubes3_PuntangPanting
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@nama", nama);
 
-                if (cmd != null) 
+                DataTable result = new DataTable();
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
                 {
-                    return ExecuteQuery(cmd);
+                    adapter.Fill(result);
                 }
-                else
-                {
-                    Console.WriteLine("Error: MySqlCommand is null.");
-                    return new DataTable(); 
-                }
+
+                return result;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error executing query: {ex.Message}");
-                return new DataTable();
+                return new DataTable(); // Or handle the exception as needed
             }
         }
+
+
 
         private DataTable ExecuteQuery(string query)
         {
