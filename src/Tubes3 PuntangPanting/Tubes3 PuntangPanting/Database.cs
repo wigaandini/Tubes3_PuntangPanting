@@ -106,6 +106,99 @@ namespace Tubes3_PuntangPanting
             return ExecuteQuery(query);
         }
 
+        public List<string> ReadAsciiData()
+        {
+            string query = "SELECT berkas_citra FROM sidik_jari";
+            DataTable dataTable = ExecuteQuery(query);
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return new List<string>();
+            }
+
+            List<string> dataList = new List<string>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string value = row["berkas_citra"].ToString();
+                dataList.Add(value);
+            }
+
+            return dataList;
+        }
+
+        public List<string> ReadNameLeft()
+        {
+            string query = "SELECT nama FROM biodata";
+            DataTable dataTable = ExecuteQuery(query);
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return new List<string>();
+            }
+
+            List<string> dataList = new List<string>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string value = row["nama"].ToString();
+                dataList.Add(value);
+            }
+
+            return dataList;
+        }
+        public string ReadNameByBerkas(string berkas)
+        {
+            try
+            {
+                string query = "SELECT nama FROM sidik_jari WHERE berkas_citra = @berkas";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@berkas", berkas);
+
+                DataTable result = new DataTable();
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    adapter.Fill(result);
+                }
+
+                if (result.Rows.Count > 0)
+                {
+                    object nameObj = result.Rows[0]["nama"];
+                    return nameObj?.ToString() ?? string.Empty;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return string.Empty;
+            }
+        }
+
+        public DataTable ReadBiodataByName(string nama)
+        {
+            try
+            {
+                string query = "SELECT * FROM biodata WHERE nama = @nama";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@nama", nama);
+
+                DataTable result = new DataTable();
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    adapter.Fill(result);
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return new DataTable(); // Or handle the exception as needed
+            }
+        }
+
         private DataTable ExecuteQuery(string query)
         {
             DataTable dt = new DataTable();

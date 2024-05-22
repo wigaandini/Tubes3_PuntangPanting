@@ -40,7 +40,7 @@ namespace Tubes3_PuntangPanting
             return Regex.Replace(teks, "[aiueo]", "");
         }
 
-        static bool CompareWord(string sentence, string sourceSentence)
+        public static bool CompareWord(string sentence, string sourceSentence)
         {
             bool RegexExtractVokalAndCompare(string word, string source)
             {
