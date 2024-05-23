@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace TestProgram {
     public class KMPAlgo {
         private static int[] Border(string pattern) {
-            if (String.IsNullOrEmpty(pattern)) {
-                return new int[0];
-            }
-
             int[] b = new int[pattern.Length];
             b[0] = 0;
 
@@ -16,58 +13,48 @@ namespace TestProgram {
             int i = 1;
 
             while (i < m) {
-                if (pattern[i] == pattern[j]) {
-                    j++;
-                    b[i] = j;
+                if (pattern[j] == pattern[i]) {
+                    b[i] = j + 1;
                     i++;
+                    j++;
+                } else if (j > 0) {
+                    j = b[j - 1];
                 } else {
-                    if (j != 0) {
-                        j = b[j - 1];
-                    } else {
-                        b[i] = 0;
-                        i++;
-                    }
+                    b[i] = 0;
+                    i++;
                 }
             }
             return b;
         }
 
-        public static int Match(string pattern, List<string> texts) {
-            if (texts.Count == 0) {
+        public static int Match(string pattern, string text) {
+            if (string.IsNullOrEmpty(pattern) || string.IsNullOrEmpty(text)) {
                 return -1;
             }
 
+            int n = text.Length;
             int m = pattern.Length;
             int[] b = Border(pattern);
 
-            foreach (string text in texts) {
-                if (pattern.Length == 0 && text.Length == 0) {
-                    return 2;
-                }
+            int i = 0;
+            int j = 0;
 
-                int n = text.Length;
-                int i = 0;
-                int j = 0;
-
-                while (i < n) {
-                    if (pattern[j] == text[i]) {
-                        i++;
-                        j++;
+            while (i < n) {
+                if (pattern[j] == text[i]) {
+                    if (j == m - 1) {
+                        return i - m + 1;
                     }
-                    if (j == m) {
-                        return i - j;
-                    } else if (i < n && pattern[j] != text[i]) {
-                        if (j != 0) {
-                            j = b[j - 1];
-                        } else {
-                            i++;
-                        }
-                    }
+                    i++;
+                    j++;
+                } else if (j > 0) {
+                    j = b[j - 1];
+                } else {
+                    i++;
                 }
             }
 
-            // If no match is found, return -1
             return -1;
         }
     }
+
 }

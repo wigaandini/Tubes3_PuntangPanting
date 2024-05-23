@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace TestProgram {
     public class BMAlgo {
         private static Dictionary<char, int> LastOccurrence(string pattern) {
-            Dictionary<char, int> last = new Dictionary<char, int>();
+            var last = new Dictionary<char, int>();
 
             for (int i = 0; i < pattern.Length; i++) {
                 last[pattern[i]] = i;
@@ -13,40 +13,40 @@ namespace TestProgram {
             return last;
         }
 
-        public static int Match(string pattern, List<string> texts) {
-            if (texts.Count == 0) {
+        public static int Match(string pattern, string text) {
+            if (string.IsNullOrEmpty(pattern) || string.IsNullOrEmpty(text)) {
                 return -1;
             }
 
-            Dictionary<char, int> last = LastOccurrence(pattern);
+            var last = LastOccurrence(pattern);
+            int n = text.Length;
+            int m = pattern.Length;
+            int i = m - 1;
 
-            foreach (string text in texts) {
-                int n = text.Length;
-                int m = pattern.Length;
-                int i = m - 1;
-                
-                if (pattern.Length == 0 && text.Length == 0) {
-                    return 2;
-                }
-                
-                while (i < n) {
-                    int j = m - 1;
-
-                    while (j >= 0 && pattern[j] == text[i]) {
-                        i--;
-                        j--;
-                    }
-
-                    if (j < 0) {
-                        return i + 1; // Match found
+            if (i > n - 1) {
+                return -1;
+            } else {
+                int j = m - 1;
+                while (true) {
+                    if (pattern[j] == text[i]) {
+                        if (j == 0) {
+                            return i;
+                        } else {
+                            i--;
+                            j--;
+                        }
                     } else {
                         int lo = last.ContainsKey(text[i]) ? last[text[i]] : -1;
                         i += m - Math.Min(j, 1 + lo);
+                        j = m - 1;
+                    }
+
+                    if (i > n - 1) {
+                        break;
                     }
                 }
             }
-            
-            // If no match is found, return -1
+
             return -1;
         }
 

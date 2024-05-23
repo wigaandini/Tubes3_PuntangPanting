@@ -12,8 +12,10 @@ namespace TestProgram {
                 "9áÿ¹<zã8üqDã@ ñÄ'ùüb â1ùüÇ", 
                 "ÿpãÜýsÇ¼üëÇþ=ÃÇÜSÏ?", 
                 "Oç;ïÏûÇóÿþþ÷ýÿ8púïxøó¿;øóÎ¼~û®p?{ÿ¼÷æxïÙÏ;Ãñæyå÷wòû¼ñÿç¼ðóó;ø{ÆxùýÎqpó¼yøóüyÿ88þ",
-                "Æ7ÞäaóÖg1ç|þÜ`[b#3I¦|H$Áe²+l%òÓ)¶KL¤Û)I$ $ÌRfIi{#f­¤Éµ"
+                "Æ7ÞäaóÖg1ç|þÜ`[b#3I¦|H$Áe²+l%òÓ)¶KL¤Û)I$ $ÌRfIi{#f­¤É"
             };
+            // string pattern = "æxïÙÏ;Ãñæyå÷wòû¼ñÿç¼ðóó;ø{ÆxùýÎdsó¼yøóüyÿ88þ";
+            // string pattern= "¼üëÇþ=ÃaÜSÏ?";
             string pattern = "";
             double minPercentage = 70.0;
 
@@ -24,7 +26,7 @@ namespace TestProgram {
             stopwatch.Stop();
 
             if (resultBM.index != -1) {
-                Console.WriteLine($"BM: Pattern found at index {resultBM.index} with similarity {resultBM.similarity}%.");
+                Console.WriteLine($"BM: Pattern found in string at index {resultBM.textIndex} with similarity {resultBM.similarity}% at position {resultBM.index}.");
             } else {
                 Console.WriteLine($"BM: No match found with minimum similarity of {minPercentage}%. Highest similarity found was {resultBM.similarity}%.");
             }
@@ -37,7 +39,7 @@ namespace TestProgram {
             stopwatch.Stop();
 
             if (resultKMP.index != -1) {
-                Console.WriteLine($"KMP: Pattern found at index {resultKMP.index} with similarity {resultKMP.similarity}%.");
+                Console.WriteLine($"KMP: Pattern found in string at index {resultKMP.textIndex} with similarity {resultKMP.similarity}% at position {resultKMP.index}.");
             } else {
                 Console.WriteLine($"KMP: No match found with minimum similarity of {minPercentage}%. Highest similarity found was {resultKMP.similarity}%.");
             }

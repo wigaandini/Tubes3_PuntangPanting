@@ -40,32 +40,23 @@ namespace TestProgram {
             return maxLength == 0 ? 100.0 : (1.0 - (double)levDistance / maxLength) * 100.0;
         }
 
-        public static (int index, double similarity) MatchWithLevenshtein(string pattern, List<string> texts, double minPercentage, int algo) {
-
-            int exactMatchIndex = -1;
-            foreach (var text in texts) {
-                if (pattern.Length == 0) {
-                    if (text.Length == 0) {
-                        return (0, 100.0);
-                    }
-                    else {
-                        return (-1, 0.0); 
-                    }
-                }
-                if (algo == 1) { // BM
-                    exactMatchIndex = BMAlgo.Match(pattern, new List<string> { text });
-                } else if (algo == 2) { // KMP
-                    exactMatchIndex = KMPAlgo.Match(pattern, new List<string> { text });
-                }
-                if (exactMatchIndex != -1) {
-                    return (exactMatchIndex, 100.0);
-                }
+        public static (int textIndex, int index, double similarity) MatchWithLevenshtein(string pattern, List<string> texts, double minPercentage, int algorithm) {
+            if (string.IsNullOrEmpty(pattern)) {
+                return (-1, -1, 0.0);
             }
 
             double highestSimilarity = 0.0;
             int closestMatchIndex = -1;
+            int closestTextIndex = -1;
 
-            foreach (var text in texts) {
+            for (int textIndex = 0; textIndex < texts.Count; textIndex++) {
+                string text = texts[textIndex];
+                int matchIndex = algorithm == 1 ? BMAlgo.Match(pattern, text) : KMPAlgo.Match(pattern, text);
+
+                if (matchIndex != -1) {
+                    return (textIndex, matchIndex, 100.0);
+                }
+
                 for (int i = 0; i <= text.Length - pattern.Length; i++) {
                     string substring = text.Substring(i, pattern.Length);
                     double similarity = CalculateSimilarityPercentage(pattern, substring);
@@ -73,14 +64,15 @@ namespace TestProgram {
                     if (similarity > highestSimilarity) {
                         highestSimilarity = similarity;
                         closestMatchIndex = i;
+                        closestTextIndex = textIndex;
                     }
                 }
             }
 
             if (highestSimilarity >= minPercentage) {
-                return (closestMatchIndex, highestSimilarity);
+                return (closestTextIndex, closestMatchIndex, highestSimilarity);
             } else {
-                return (-1, highestSimilarity);
+                return (-1, -1, highestSimilarity);
             }
         }
 
