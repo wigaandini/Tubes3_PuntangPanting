@@ -72,3 +72,11 @@ D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting
 D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 P.26E31351.Up2Date
 D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.genruntimeconfig.cache
 D:\ITB\Tugas Stima\Tubes\Tubes 3\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\ref\Tubes3 PuntangPanting.dll
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.csproj.AssemblyReference.cache
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.cache
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.lref
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.dll
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\refint\Tubes3 PuntangPanting.dll
+C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.pdb

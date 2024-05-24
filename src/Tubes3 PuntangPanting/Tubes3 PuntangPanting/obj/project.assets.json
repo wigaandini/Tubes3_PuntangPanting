@@ -1788,19 +1788,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\WIGA\\.nuget\\packages\\": {}
+    "C:\\Users\\edarr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ITB\\Tugas Stima\\Tubes\\Tubes 3\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
+      "projectUniqueName": "C:\\Users\\edarr\\Downloads\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
       "projectName": "Tubes3 PuntangPanting",
-      "projectPath": "D:\\ITB\\Tugas Stima\\Tubes\\Tubes 3\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
-      "packagesPath": "C:\\Users\\WIGA\\.nuget\\packages\\",
-      "outputPath": "D:\\ITB\\Tugas Stima\\Tubes\\Tubes 3\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\obj\\",
+      "projectPath": "C:\\Users\\edarr\\Downloads\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting.csproj",
+      "packagesPath": "C:\\Users\\edarr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\edarr\\Downloads\\Tubes3_PuntangPanting\\src\\Tubes3 PuntangPanting\\Tubes3 PuntangPanting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\WIGA\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\edarr\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"

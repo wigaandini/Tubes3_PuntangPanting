@@ -13,10 +13,6 @@ using Microsoft.Win32;
 using MySql.Data;
 using System.Drawing;
 using MySql.Data.MySqlClient;
-<<<<<<< HEAD
-
-=======
->>>>>>> 81fa4d29b77b32dc604504a888cfe35a96ee47ee
 
 namespace Tubes3_PuntangPanting
 {
@@ -84,13 +80,10 @@ namespace Tubes3_PuntangPanting
                 BitmapImage bitmap = new BitmapImage(new Uri(filePath));
                 Bitmap bp = new Bitmap(filePath);
                 image1.Source = bitmap;
-<<<<<<< HEAD
-=======
                 if (bp != null)
                 {
                 imgUpload = bp;
                 }
->>>>>>> 81fa4d29b77b32dc604504a888cfe35a96ee47ee
             }
         }
 
