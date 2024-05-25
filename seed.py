@@ -100,11 +100,10 @@ def random_alay(char):
 used_names = set()
 
 def generate_unique_name(fake):
-        fake_name = fake.name()
+        fake_name = fake.first_name() + " " + fake.last_name()
         cleaned_name = remove_non_alphabetic(fake_name)
         real_name = remove_titles(cleaned_name)
         return real_name
-        
 
 def generate_random_corrupt_name(name):
     corrupt_name = random_remove_vocal(name)
@@ -112,7 +111,7 @@ def generate_random_corrupt_name(name):
     corrupt_name = random_alay(corrupt_name)
     return corrupt_name
 
-def image_to_ascii(image_path):
+def image_asciii(image_path, target_width=8, target_height=4):
     # Buka gambar
     img = Image.open(image_path)
     width, height = img.size
@@ -120,16 +119,64 @@ def image_to_ascii(image_path):
     # Grayscaling image
     img = img.convert('L')
 
-    # Get the center 30x30 box
-    start_x = width // 2 - 15
-    start_y = height // 2 - 15
-    crop_box = (start_x, start_y, start_x + 30, start_y + 30)
+    ascii_data = ''
+
+    for start_y in range(height - target_height + 1):
+        for start_x in range(width - target_width + 1):
+            binary_data = ''
+            for y in range(target_height):
+                for x in range(target_width):
+                    pixel_value = img.getpixel((start_x + x, start_y + y))
+                    # Create a binary string based on the pixel value
+                    binary_data += '0' if pixel_value < 128 else '1'
+
+            for i in range(0, len(binary_data), 8):
+                byte = binary_data[i:i+8]
+                if len(byte) == 8:
+                    ascii_char = chr(int(byte, 2))
+                    ascii_data += ascii_char
+    
+    return ascii_data
+
+def find_dominant_dark_area(img):
+    width, height = img.size
+    window_size = 8  # Adjust this as needed for the size of the dark area
+    min_intensity_sum = float('inf')
+    dominant_coords = (0, 0)
+
+    for y in range(height - window_size): 
+        for x in range(width - window_size):  
+            intensity_sum = sum(
+                sum(img.getpixel((x + dx, y + dy))[0:3])
+                for dy in range(window_size)
+                for dx in range(window_size)
+            )
+            if intensity_sum < min_intensity_sum:
+                min_intensity_sum = intensity_sum
+                dominant_coords = (x, y)
+
+    return dominant_coords
+
+def highest_dark_ascii(image_path):
+    # Buka gambar
+    img = Image.open(image_path)
+    width, height = img.size
+
+    # Cari area dengan konsentrasi piksel tertinggi
+    max_intensity_coords = find_dominant_dark_area(img)
+
+    # Gunakan koordinat tersebut untuk crop gambar sebesar 8x4
+    crop_box = (max_intensity_coords[0], max_intensity_coords[1],
+                max_intensity_coords[0] + 8, max_intensity_coords[1] + 4)
     cropped_img = img.crop(crop_box)
 
-    # Convert the 30x30 image to ASCII
+    # Convert cropped image to grayscale
+    cropped_img = cropped_img.convert('L')
+
+    # Convert the 8x4 image to ASCII
     binary_data = ''
-    for y in range(30):
-        for x in range(30):
+    for y in range(4):  # Ubah dari 30 ke 4 untuk tinggi
+        for x in range(8):  # Ubah dari 30 ke 8 untuk lebar
             pixel_value = cropped_img.getpixel((x, y))
             # Create a binary string based on the pixel value
             binary_data += '0' if pixel_value < 128 else '1'
@@ -149,7 +196,8 @@ db_connection = mysql.connector.connect(
     host="Fairuz",
     user="root",
     password="bismillah.33",
-    database="stima"
+    database="stima",
+     connection_timeout=10000
 )
 
 # Create a cursor object to execute SQL queries
@@ -175,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `biodata` (
 
 create_sidik_jari_table = """
 CREATE TABLE IF NOT EXISTS `sidik_jari` (
-  `berkas_citra` text DEFAULT NULL,
+  `berkas_citra` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `nama` varchar(100) DEFAULT NULL,
   `path` text NOT NULL,
   PRIMARY KEY (`path`(255))
@@ -188,7 +236,7 @@ cursor.execute(create_sidik_jari_table)
 # Create a cursor object to execute SQL queries
 
 # Path to the folder containing images
-image_folder_path = "data"
+image_folder_path = "src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/"
 files = os.listdir(image_folder_path)
 
 # Filter only .bmp files
@@ -203,7 +251,7 @@ unique_paths = set()
 unique_names = set()
 # Create one-to-many relationship
 i = 0
-while i < total_data:
+while i < 1000:
     real_name = generate_unique_name(fake)
     NIK = str(fake.random_number(digits=16, fix_len=True))
     nama = generate_random_corrupt_name(real_name)
@@ -226,8 +274,8 @@ while i < total_data:
     random_count = min(rand, remaining_records)  
     for j in range(random_count):
         bmp_file = bmp_files[i + j]
-        berkas_citra = image_to_ascii(os.path.join(image_folder_path, bmp_file))
-        path = os.path.join(image_folder_path, bmp_file)
+        berkas_citra = image_asciii(os.path.join(image_folder_path, bmp_file))
+        path =bmp_file
 
         if path not in unique_paths:
             sidik_jari_data = (berkas_citra, real_name, path)
@@ -237,8 +285,7 @@ while i < total_data:
             print(f"Duplicate path detected: {path}")
     
     i += random_count
-
-print(len(sidik_jari_records))
+    print(i)
 
 # Define SQL insert statements for biodata and sidik_jari
 insert_biodata = """

@@ -44,6 +44,7 @@ namespace Tubes3_PuntangPanting
         {
             bool RegexExtractVokalAndCompare(string word, string source)
             {
+
                 var vokalWord = Regex.Matches(word, "[aiueo]");
                 var vokalSource = Regex.Matches(source, "[aiueo]");
                 string noVokalWord = RemoveVokal(word);
@@ -64,6 +65,8 @@ namespace Tubes3_PuntangPanting
                 return true;
             }
 
+            sentence = AlayNormalization(sentence);
+            sourceSentence = AlayNormalization(sourceSentence);
             string[] arrayWord = sentence.Split(' ');
             string[] arraySource = sourceSentence.Split(' ');
 

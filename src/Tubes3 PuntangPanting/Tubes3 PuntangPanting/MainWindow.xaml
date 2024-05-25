@@ -182,36 +182,39 @@
 
                 <!-- Placeholder for matched fingerprint -->
                 <Border Grid.Column="1"
-                        BorderBrush="DarkGray"
-                        CornerRadius="20"
-                        BorderThickness="1"
-                        Margin="15">
-                    <TextBlock 
-                        Text="Matched Fingerprint" 
-                        FontWeight="Medium" 
-                        FontSize="18"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontFamily="/Font/#Dosis"
-
-                        Foreground="DarkGray" />
+                BorderBrush="DarkGray"
+                CornerRadius="20"
+                BorderThickness="1"
+                Margin="15">
+                    <Image x:Name="imgMatchedFingerprint"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Stretch="Uniform" />
                 </Border>
 
-                <!-- Placeholder for biodata list -->
+
                 <Border Grid.Column="2"
-                        BorderBrush="DarkGray"
-                        CornerRadius="20"
-                        BorderThickness="1"
-                        Margin="15">
-                    <TextBlock 
-                        Text="Biodata List" 
-                        FontWeight="Medium" 
-                        FontSize="18"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontFamily="/Font/#Dosis"
-                        Foreground="DarkGray" />
+        BorderBrush="DarkGray"
+        CornerRadius="20"
+        BorderThickness="1"
+        Margin="15">
+                    <ScrollViewer VerticalAlignment="Center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <TextBlock 
+            FontWeight="Medium" 
+            FontSize="18"
+            x:Name="biodataLabel"
+            Text="Biodata List"
+            TextAlignment="Center" 
+            TextWrapping="Wrap"
+            Padding="20"
+            FontFamily="/Font/#Dosis"
+            Foreground="Gray" 
+            />
+    </ScrollViewer>
                 </Border>
+
+
+
             </Grid>
             <!-- Display search duration and match percentage -->
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 10">
@@ -223,43 +226,45 @@
                 <!-- Search duration -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20 0 20 0">
                     <TextBlock Background="Transparent" 
-                           Foreground="White"
-                           Text="Search Duration: "
-                           FontFamily="/Font/#Dosis"
-                           FontSize="16"
-                           FontWeight="Medium"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+               Foreground="White"
+               Text="Search Duration: "
+               FontFamily="/Font/#Dosis"
+               FontSize="16"
+               FontWeight="Medium"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
                     <TextBlock Background="Transparent" 
-                           Foreground="White"
-                           Text="500ms"
-                           Margin="20 0 0 0"
-                           FontFamily="/Font/#Dosis"
-                           FontSize="16"
-                           FontWeight="Medium"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+               Foreground="White"
+               Text="ms"
+               x:Name="durationLabel"
+               Margin="20 0 0 0"
+               FontFamily="/Font/#Dosis"
+               FontSize="16"
+               FontWeight="Medium"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Match percentage -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20 0 20 0">
                     <TextBlock Background="Transparent" 
-                           Foreground="White"
-                           Text="Match Percentage: "
-                           FontFamily="/Font/#Dosis"
-                           FontSize="16"
-                           FontWeight="Medium"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+               Foreground="White"
+               Text="Match Percentage: "
+               FontFamily="/Font/#Dosis"
+               FontSize="16"
+               FontWeight="Medium"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
                     <TextBlock Background="Transparent" 
-                           Foreground="White"
-                           Text="100%"
-                           Margin="20 0 0 0"
-                           FontFamily="/Font/#Dosis"
-                           FontSize="16"
-                           FontWeight="Medium"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+               Foreground="White"
+               Text="%"
+               x:Name="PercentageLabel"
+               Margin="20 0 0 0"
+               FontFamily="/Font/#Dosis"
+               FontSize="16"
+               FontWeight="Medium"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
 

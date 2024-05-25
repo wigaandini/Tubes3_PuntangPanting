@@ -8,6 +8,19 @@ namespace TestProgram {
             List<string> text = new List<string> {
                 "ï:åñÏÞùàYæ??ß3Ós|¼ãøÆ:Þî3Ùâ¹Æ39ÏãÛíÆ0½ÿ;ÏûáÆg¸>3ÂðÌ|3Ìfüæ0øf1 38ÿ}8yÇÞdþnsÞ39è9<?ÙíÌøÄF", 
                 "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ÿ0À<La?ã7 G#pxFÉÀ\"OÄd@pÌ?ð92p>dìÈðdb.o¿", 
+                "ï:åñÏÞùàYæ??ß3Ós|¼ãøÆ:Þî3Ùâ¹Æ39ÏãÛíÆ0½ÿ;ÏûáÆg¸>3ÂðÌ|3Ìfüæ0øf1 38ÿ}8yÇÞdþnsÞ39è9<?ÙíÌøÄF", 
                 "ãÿç8ø?1 áÿìîÿæ1s£ÏÿøÌx", 
                 "9áÿ¹<zã8üqDã@ ñÄ'ùüb â1ùüÇ", 
                 "ÿpãÜýsÇ¼üëÇþ=ÃÇÜSÏ?", 
@@ -16,7 +29,7 @@ namespace TestProgram {
             };
             // string pattern = "æxïÙÏ;Ãñæyå÷wòû¼ñÿç¼ðóó;ø{ÆxùýÎdsó¼yøóüyÿ88þ";
             // string pattern= "¼üëÇþ=ÃaÜSÏ?";
-            string pattern = "";
+            string pattern = "¼üëÇþ=ÃaÜSÏ?";
             double minPercentage = 70.0;
 
             // Boyer-Moore Algorithm
