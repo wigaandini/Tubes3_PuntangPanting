@@ -96,39 +96,20 @@ namespace Tubes3_PuntangPanting
 
         public DataTable ReadBiodata()
         {
-            string query = "SELECT * FROM biodata";
+            string query = "SELECT * FROM `biodata`";
             return ExecuteQuery(query);
         }
 
         public DataTable ReadSidikJari()
         {
-            string query = "SELECT * FROM sidik_jari";
+            string query = "SELECT * FROM `sidik_jari`";
             return ExecuteQuery(query);
         }
 
-        public List<string> ReadAsciiData()
-        {
-            string query = "SELECT berkas_citra FROM sidik_jari";
-            DataTable dataTable = ExecuteQuery(query);
-
-            if (dataTable == null || dataTable.Rows.Count == 0)
-            {
-                return new List<string>();
-            }
-
-            List<string> dataList = new List<string>();
-            foreach (DataRow row in dataTable.Rows)
-            {
-                string value = row["berkas_citra"].ToString();
-                dataList.Add(value);
-            }
-
-            return dataList;
-        }
 
         public List<string> ReadNameLeft()
         {
-            string query = "SELECT nama FROM biodata";
+            string query = "SELECT nama FROM `biodata`";
             DataTable dataTable = ExecuteQuery(query);
 
             if (dataTable == null || dataTable.Rows.Count == 0)
@@ -145,60 +126,40 @@ namespace Tubes3_PuntangPanting
 
             return dataList;
         }
-        public string ReadNameByBerkas(string berkas)
+
+        public DataRow ReadDataByBerkas(string berkas, DataTable sidikJariTable)
         {
-            try
+            // Validate input to prevent SQL injection
+            if (string.IsNullOrEmpty(berkas) || sidikJariTable == null || sidikJariTable.Rows.Count == 0)
             {
-                string query = "SELECT nama FROM sidik_jari WHERE berkas_citra = @berkas";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@berkas", berkas);
-
-                DataTable result = new DataTable();
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
-                {
-                    adapter.Fill(result);
-                }
-
-                if (result.Rows.Count > 0)
-                {
-                    object nameObj = result.Rows[0]["nama"];
-                    return nameObj?.ToString() ?? string.Empty;
-                }
-                else
-                {
-                    return string.Empty;
-                }
+                return sidikJariTable?.NewRow() ?? new DataTable().NewRow();
             }
-            catch (Exception ex)
+
+            // Enclose the column name in square brackets to handle spaces
+            DataRow[] result = sidikJariTable.Select($"[path] = '{berkas.Replace("'", "''")}'");
+            if (result.Length > 0)
             {
-                Console.WriteLine($"Error executing query: {ex.Message}");
-                return string.Empty;
+                return result[0];
             }
+            return sidikJariTable.NewRow();
         }
 
-        public DataTable ReadBiodataByName(string nama)
+        public DataTable ReadBiodataByName(string name, DataTable biodataTable)
         {
-            try
+            DataTable filteredTable = new DataTable();
+            // Validate input to prevent SQL injection
+            if (!string.IsNullOrEmpty(name) && biodataTable != null && biodataTable.Rows.Count > 0)
             {
-                string query = "SELECT * FROM biodata WHERE nama = @nama";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@nama", nama);
-
-                DataTable result = new DataTable();
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                filteredTable = biodataTable.Clone();
+                // Enclose the column name in square brackets to handle spaces
+                DataRow[] matchingRows = biodataTable.Select($"[nama] = '{name.Replace("'", "''")}'");
+                foreach (DataRow row in matchingRows)
                 {
-                    adapter.Fill(result);
+                    filteredTable.ImportRow(row);
                 }
-
-                return result;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error executing query: {ex.Message}");
-                return new DataTable(); // Or handle the exception as needed
-            }
+            return filteredTable;
         }
-
         private DataTable ExecuteQuery(string query)
         {
             DataTable dt = new DataTable();

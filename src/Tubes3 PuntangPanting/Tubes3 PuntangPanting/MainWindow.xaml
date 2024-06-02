@@ -1,432 +1,524 @@
-﻿<Window 
-        x:Class="Tubes3_PuntangPanting.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tubes3_PuntangPanting"
-        mc:Ignorable="d"
-        Title="PuntangPanting" 
-        MinHeight="600" 
-        MinWidth="1080" 
-        Height="600" 
-        Width="1080"
-        WindowStyle="None" 
-        Background="#181735"
-      >
+﻿<Window
+    x:Class="Tubes3_PuntangPanting.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Tubes3_PuntangPanting"
+    mc:Ignorable="d"
+    Title="PuntangPanting"
+    MinHeight="900"
+    MinWidth="1600"
+    Height="900"
+    Width="1600"
+    WindowStyle="None"
+    Background="#181735">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+        <Grid>
+            <!-- Define grid rows -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Define grid columns -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-    <Grid>
-        <!-- Define grid rows -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <!-- Define grid columns -->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+            <!-- Top border with application title -->
+            <Border Grid.ColumnSpan="2"
+                    Padding="8"
+                    Background="#0F0F2D"
+                    MouseDown="Grid_MouseDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-        <!-- Top border with application title -->
-        <Border Grid.ColumnSpan="2" Padding="8" Background="#0F0F2D" MouseDown="Grid_MouseDown">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                    <!-- Application title -->
+                    <TextBlock Text="P u n t a n g P a n t i n g"
+                               Foreground="White"
+                               Grid.Column="0"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontFamily="Font/#Dosis"
+                               FontWeight="Bold"/>
 
-                <!-- Application title -->
-                <TextBlock Text="P u n t a n g P a n t i n g" 
-                           Foreground="White"
-                           Grid.Column="0" 
-                           FontSize="20"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontFamily="Font/#Dosis"
-                           FontWeight="Bold"/>
-
-                <!-- Fullscreen button -->
-                <Button Content="🗖"
-                        Foreground="White"
-                        FontSize="20"
-                        FontWeight="Medium"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        Margin="10 0 10 5"
-                        Click="FullscreenButton_Click"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        ToolTip="Close">
-                    <!-- Button template for custom styling -->
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-                                            <Grid>
-                                                <!-- Ellipse for button shape -->
-                                                <Ellipse x:Name="BorderEllipse"
-                                                         Fill="{TemplateBinding Background}"
-                                                         Width="28"
-                                                         Height="28"/>
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Grid>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="BorderEllipse" Property="Fill" Value="#39385D"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Cursor" Value="Hand"/>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
-                <!-- Close button -->
-                <Button Content="✖"
-                        Foreground="White"
-                        FontSize="14"
-                        FontWeight="Medium"
-                        Grid.Column="3"
-                        HorizontalAlignment="Right"
-                        Margin="10 0 10 0"
-                        Click="CloseButton_Click"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        ToolTip="Close">
-                    <!-- Button template for custom styling -->
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-                                            <Grid>
-                                                <!-- Ellipse for button shape -->
-                                                <Ellipse x:Name="BorderEllipse"
-                                                         Fill="{TemplateBinding Background}"
-                                                         Width="28"
-                                                         Height="28"/>
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Grid>
-                                        </Border>
-                                        <!-- Trigger for mouse-over effect -->
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="BorderEllipse" Property="Fill" Value="#fc593d"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Cursor" Value="Hand"/>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
-            </Grid>
-        </Border>
-
-        <!-- Main content stack panel -->
-        <StackPanel Grid.Row="1"  Margin="200 30 200 30" VerticalAlignment="Center">
-            <!-- Title text block -->
-            <StackPanel Margin="0 0 0 20">
-                <TextBlock Background="Transparent" 
-                           Foreground="White"
-                           Text="C# Application Big Task 3 Algorithm Strategies 2023/2024"
-                           FontFamily="/Font/#Dosis"
-                           FontSize="24"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
-
-            <!-- Grid for content sections -->
-            <Grid HorizontalAlignment="Stretch" MinHeight="250px" VerticalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!-- Image upload section -->
-                <Border Grid.Column="0"
-                        BorderBrush="DarkGray" 
-                        BorderThickness="1"
-                        CornerRadius="20"
-                        Margin="15">
-                    <Grid>
-                        <Image Name="image1" Width="100" Height="100" Stretch="UniformToFill" Opacity="0.8">
-                            <Image.Effect>
-                                <DropShadowEffect BlurRadius="10" ShadowDepth="5" Color="Black" Opacity="0.5" />
-                            </Image.Effect>
-                        </Image>
-                        <Button Content="Upload Fingerprint"
-                                Click="UploadImage1_Click" 
-                                Margin="5" 
-                                Padding="8" 
-                                Background="Transparent" 
-                                Foreground="DarkGray"
-                                BorderThickness="0" 
-                                FontWeight="Medium" 
-                                FontSize="18"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontFamily="/Font/#Dosis"/>
-                    </Grid>
-                </Border>
-
-                <!-- Placeholder for matched fingerprint -->
-                <Border Grid.Column="1"
-                BorderBrush="DarkGray"
-                CornerRadius="20"
-                BorderThickness="1"
-                Margin="15">
-                    <Image x:Name="imgMatchedFingerprint"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Stretch="Uniform" />
-                </Border>
-
-
-                <Border Grid.Column="2"
-        BorderBrush="DarkGray"
-        CornerRadius="20"
-        BorderThickness="1"
-        Margin="15">
-                    <ScrollViewer VerticalAlignment="Center" HorizontalAlignment="Center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                        <TextBlock 
-            FontWeight="Medium" 
-            FontSize="18"
-            x:Name="biodataLabel"
-            Text="Biodata List"
-            TextAlignment="Center"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-            TextWrapping="Wrap"
-            Padding="20"
-            FontFamily="/Font/#Dosis"
-            Foreground="Gray" 
-            />
-    </ScrollViewer>
-                </Border>
-
-
-
-            </Grid>
-            <!-- Display search duration and match percentage -->
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!-- Search duration -->
-                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20 0 20 0">
-                    <TextBlock Background="Transparent" 
-               Foreground="White"
-               Text="Search Duration: "
-               FontFamily="/Font/#Dosis"
-               FontSize="16"
-               FontWeight="Medium"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-                    <TextBlock Background="Transparent" 
-               Foreground="White"
-               Text="ms"
-               x:Name="durationLabel"
-               Margin="20 0 0 0"
-               FontFamily="/Font/#Dosis"
-               FontSize="16"
-               FontWeight="Medium"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <!-- Match percentage -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20 0 20 0">
-                    <TextBlock Background="Transparent" 
-               Foreground="White"
-               Text="Match Percentage: "
-               FontFamily="/Font/#Dosis"
-               FontSize="16"
-               FontWeight="Medium"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-                    <TextBlock Background="Transparent" 
-               Foreground="White"
-               Text="%"
-               x:Name="PercentageLabel"
-               Margin="20 0 0 0"
-               FontFamily="/Font/#Dosis"
-               FontSize="16"
-               FontWeight="Medium"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-                </StackPanel>
-            </Grid>
-
-
-
-            <!-- Action buttons -->
-            <Grid Margin="30 10 30 20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <!-- Button 1 -->
-                <Button Content="Browse"
-                    Foreground="White"
-                    Click="UploadImage1_Click" 
-                    FontSize="16"
-                    FontWeight="Medium">
-                    <!-- Button 1 style -->
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Font/#Dosis"/>
-                            <Setter Property="Background" Value="#FE6584"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <!-- Button 1 hover effect -->
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF4C70"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <!-- Button 1 template -->
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="100" Height="25"
-                                CornerRadius="12"
-                                Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-                <!--Toggle Button-->
-                <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Background="Transparent" 
-                         Foreground="White"
-                         Text="BM"
-                         FontFamily="/Font/#Dosis"
-                         FontSize="16"
-                         FontWeight="Medium"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"/>
-                    <!-- BOrder Toggle-->
-                    <Border  Margin="10 0 10 0" x:Name="switch" BorderThickness="2" CornerRadius="10" Height="25" Width="60" Padding="1" >
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding}" Value="True">
-                                        <Setter Property="BorderBrush" Value="#FE6584"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="BorderBrush" Value="#39385D"/>
+                    <!-- Fullscreen button -->
+                    <Button Content="🗖"
+                            Foreground="White"
+                            FontSize="20"
+                            FontWeight="Medium"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Margin="10 0 10 5"
+                            Click="FullscreenButton_Click"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ToolTip="Close">
+                        <!-- Button template for custom styling -->
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="Transparent"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0">
+                                                <Grid>
+                                                    <!-- Ellipse for button shape -->
+                                                    <Ellipse x:Name="BorderEllipse"
+                                                             Fill="{TemplateBinding Background}"
+                                                             Width="28"
+                                                             Height="28"/>
+                                                    <ContentPresenter HorizontalAlignment="Center"
+                                                                      VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver"
+                                                         Value="True">
+                                                    <Setter TargetName="BorderEllipse"
+                                                            Property="Fill"
+                                                            Value="#39385D"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Cursor"
+                                        Value="Hand"/>
                             </Style>
-                        </Border.Style>
-                        <!-- Splitter Toggle-->
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Close button -->
+                    <Button Content="✖"
+                            Foreground="White"
+                            FontSize="14"
+                            FontWeight="Medium"
+                            Grid.Column="3"
+                            HorizontalAlignment="Right"
+                            Margin="10 0 10 0"
+                            Click="CloseButton_Click"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ToolTip="Close">
+                        <!-- Button template for custom styling -->
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="Transparent"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0">
+                                                <Grid>
+                                                    <!-- Ellipse for button shape -->
+                                                    <Ellipse x:Name="BorderEllipse"
+                                                             Fill="{TemplateBinding Background}"
+                                                             Width="28"
+                                                             Height="28"/>
+                                                    <ContentPresenter HorizontalAlignment="Center"
+                                                                      VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                            <!-- Trigger for mouse-over effect -->
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver"
+                                                         Value="True">
+                                                    <Setter TargetName="BorderEllipse"
+                                                            Property="Fill"
+                                                            Value="#fc593d"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Cursor"
+                                        Value="Hand"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                </Grid>
+            </Border>
+
+            <!-- Main content stack panel -->
+            <StackPanel Grid.Row="1"
+                        Margin="200 30 200 30"
+                        VerticalAlignment="Center">
+                <!-- Title text block -->
+                <StackPanel Margin="0 0 0 20">
+                    <TextBlock Background="Transparent"
+                               Foreground="White"
+                               Text="C# Application Big Task 3 Algorithm Strategies 2023/2024"
+                               FontFamily="/Font/#Dosis"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Grid for content sections -->
+                <Grid HorizontalAlignment="Stretch"
+                      MinHeight="250px"
+                      VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Image upload section -->
+                    <Border Grid.Column="0"
+                            BorderBrush="DarkGray"
+                            BorderThickness="1"
+                            CornerRadius="20"
+                            Margin="15">
                         <Grid>
-                            <Grid.Resources>
-                                <Style TargetType="ToggleButton">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ToggleButton">
-                                                <Grid Background="Transparent"/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Grid.Resources>
-                            <!-- Left Side Toggle-->
-                            <ToggleButton Width="20" HorizontalAlignment="Left" Height="20" Name="tbLeft"
-                            IsChecked="{Binding IsChecked, ElementName=tbRight}" />
-                            <!-- Right Side Toggle-->
-                            <ToggleButton Width="20" HorizontalAlignment="Right" Height="20" Name="tbRight"
-                            IsChecked="{Binding DataContext, ElementName=switch}"/>
-
-                            <Canvas VerticalAlignment="Top">
-                                <Ellipse Height="18" Width="18" Name="EL">
-                                    <Ellipse.Style>
-                                        <Style TargetType="Ellipse">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
-                                                    <Setter Property="Canvas.Right" Value="2"/>
-                                                    <!-- 40-14-7 -->
-                                                    <Setter Property="Fill" Value="#FE6584"/>
-
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                            <Setter Property="Fill" Value="#39385D"/>
-                                        </Style>
-                                    </Ellipse.Style>
-                                </Ellipse>
-                            </Canvas>
+                            <Image Name="image1"
+                                   Width="150"
+                                   Height="150"
+                                   Stretch="UniformToFill">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="10"
+                                                      ShadowDepth="5"
+                                                      Color="Black"
+                                                      Opacity="0.5"/>
+                                </Image.Effect>
+                            </Image>
+                            <Button Content="Upload Fingerprint"
+                                    Click="UploadImage1_Click"
+                                    Margin="5"
+                                    Padding="8"
+                                    x:Name="buttonUpload"
+                                    Background="Transparent"
+                                    Foreground="DarkGray"
+                                    BorderThickness="0"
+                                    FontWeight="Medium"
+                                    FontSize="18"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="/Font/#Dosis"/>
                         </Grid>
                     </Border>
 
-                    <TextBlock Background="Transparent" 
-                        Foreground="White"
-                        Text="KMP"
-                        FontFamily="/Font/#Dosis"
-                        FontSize="16"
-                        FontWeight="Medium"
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"/>
+                    <!-- Placeholder for matched fingerprint -->
+                    <Border Grid.Column="1"
+                            BorderBrush="DarkGray"
+                            BorderThickness="1"
+                            CornerRadius="20"
+                            Margin="15">
+                        <Grid>
+                            <Image  x:Name="imgMatchedFingerprint"
+                                    Width="150"
+                                    Height="150"
+                                    Stretch="UniformToFill">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="10"
+                                                      ShadowDepth="5"
+                                                      Color="Black"
+                                                      Opacity="0.5"/>
+                                </Image.Effect>
+                            </Image>
+
+                        </Grid>
+                    </Border>
+
+
+                    <Border Grid.Column="2"
+                            BorderBrush="DarkGray"
+                            CornerRadius="20"
+                            BorderThickness="1"
+                            Margin="15">
+                        <ScrollViewer VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock
+                                FontWeight="Medium"
+                                FontSize="18"
+                                x:Name="biodataLabel"
+                                Text="Biodata List"
+                                TextAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                TextWrapping="Wrap"
+                                Padding="20"
+                                FontFamily="/Font/#Dosis"
+                                Foreground="Gray"/>
+                        </ScrollViewer>
+                    </Border>
+
+
+
+                </Grid>
+
+                <ProgressBar Name="LoadingProgressBar"
+                             IsIndeterminate="True"
+                             Visibility="Hidden"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Width="200"
+                             Height="10"/>
+
+                <!-- Display search duration and match percentage -->
+                <Grid HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Margin="0 10 0 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Search duration -->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                Margin="20 0 20 0">
+                        <TextBlock Background="Transparent"
+                                   Foreground="White"
+                                   Text="Search Duration: "
+                                   FontFamily="/Font/#Dosis"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Background="Transparent"
+                                   Foreground="White"
+                                   Text="ms"
+                                   x:Name="durationLabel"
+                                   Margin="20 0 0 0"
+                                   FontFamily="/Font/#Dosis"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Match percentage -->
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                Margin="20 0 20 0">
+                        <TextBlock Background="Transparent"
+                                   Foreground="White"
+                                   Text="Match Percentage: "
+                                   FontFamily="/Font/#Dosis"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Background="Transparent"
+                                   Foreground="White"
+                                   Text="%"
+                                   x:Name="PercentageLabel"
+                                   Margin="20 0 0 0"
+                                   FontFamily="/Font/#Dosis"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+
+
+
+                <!-- Action buttons -->
+                <Grid Margin="30 10 30 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Button 1 -->
+                    <Button Content="Browse"
+                            Foreground="White"
+                            Click="UploadImage1_Click"
+                            FontSize="16"
+                            FontWeight="Medium">
+                        <!-- Button 1 style -->
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily"
+                                        Value="Font/#Dosis"/>
+                                <Setter Property="Background"
+                                        Value="#FE6584"/>
+                                <Setter Property="Cursor"
+                                        Value="Hand"/>
+                                <!-- Button 1 hover effect -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="#FF4C70"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <!-- Button 1 template -->
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="100"
+                                        Height="25"
+                                        CornerRadius="12"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!--Toggle Button-->
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                        <TextBlock Background="Transparent"
+                                   Foreground="White"
+                                   Text="BM"
+                                   FontFamily="/Font/#Dosis"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <!-- BOrder Toggle-->
+                        <Border  Margin="10 0 10 0"
+                                 x:Name="switch"
+                                 BorderThickness="2"
+                                 CornerRadius="10"
+                                 Height="25"
+                                 Width="60"
+                                 Padding="1">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding}"
+                                                     Value="True">
+                                            <Setter Property="BorderBrush"
+                                                    Value="#FE6584"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="BorderBrush"
+                                            Value="#39385D"/>
+                                </Style>
+                            </Border.Style>
+                            <!-- Splitter Toggle-->
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="ToggleButton">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Grid Background="Transparent"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Grid.Resources>
+                                <!-- Left Side Toggle-->
+                                <ToggleButton Width="20"
+                                              HorizontalAlignment="Left"
+                                              Height="20"
+                                              Name="tbLeft"
+                                              IsChecked="{Binding IsChecked, ElementName=tbRight}"/>
+                                <!-- Right Side Toggle-->
+                                <ToggleButton Width="20"
+                                              HorizontalAlignment="Right"
+                                              Height="20"
+                                              Name="tbRight"
+                                              IsChecked="{Binding DataContext, ElementName=switch}"/>
+
+                                <Canvas VerticalAlignment="Top">
+                                    <Ellipse Height="18"
+                                             Width="18"
+                                             Name="EL">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Border}}"
+                                                                 Value="True">
+                                                        <Setter Property="Canvas.Right"
+                                                                Value="2"/>
+                                                        <!-- 40-14-7 -->
+                                                        <Setter Property="Fill"
+                                                                Value="#FE6584"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="Fill"
+                                                        Value="#39385D"/>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                </Canvas>
+                            </Grid>
+                        </Border>
+
+                        <TextBlock Background="Transparent"
+                                   Foreground="White"
+                                   Text="KMP"
+                                   FontFamily="/Font/#Dosis"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+
+                </Grid>
+
+
+                <StackPanel>
+                    <!-- Button 3 -->
+                    <Button Content="Search"
+                            Foreground="White"
+                            FontSize="16"
+                            Click="Button_Click"
+                            FontWeight="Medium">
+                        <!-- Button 3 style -->
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily"
+                                        Value="Font/#Dosis"/>
+                                <Setter Property="Background"
+                                        Value="#3DDDC2"/>
+                                <Setter Property="Cursor"
+                                        Value="Hand"/>
+                                <!-- Button 3 hover effect -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="#3A3952"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <!-- Button 3 template -->
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="100"
+                                        Height="25"
+                                        CornerRadius="12"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
                 </StackPanel>
-
-
-            </Grid>
-
-
-            <StackPanel>
-                <!-- Button 3 -->
-                <Button Content="Search"
-                     Foreground="White"
-                     FontSize="16"
-                           Click="Button_Click"
-                    FontWeight="Medium">
-                    <!-- Button 3 style -->
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Font/#Dosis"/>
-                            <Setter Property="Background" Value="#3DDDC2"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <!-- Button 3 hover effect -->
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#3A3952"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <!-- Button 3 template -->
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="100" Height="25"
-                                    CornerRadius="12"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                               HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
 
             </StackPanel>
 
-        </StackPanel>
 
-
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>
 
                        

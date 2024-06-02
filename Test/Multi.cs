@@ -13,7 +13,7 @@ namespace Test
         static void Main(string[] args)
         {
             string sourceImg = "Easy.BMP";
-            string folderPath = "data/";
+            string folderPath = "../src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/";
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             TestAllImagesInFolder(folderPath, "kmp", sourceImg);

@@ -4,8 +4,10 @@ using System.Diagnostics;
 
 namespace Tubes3_PuntangPanting
 {
-    public class KMP {
-        private static int[] Border(string pattern) {
+    public class KMP
+    {
+        private static int[] Border(string pattern)
+        {
             int[] b = new int[pattern.Length];
             b[0] = 0;
 
@@ -13,14 +15,20 @@ namespace Tubes3_PuntangPanting
             int j = 0;
             int i = 1;
 
-            while (i < m) {
-                if (pattern[j] == pattern[i]) {
+            while (i < m)
+            {
+                if (pattern[j] == pattern[i])
+                {
                     b[i] = j + 1;
                     i++;
                     j++;
-                } else if (j > 0) {
+                }
+                else if (j > 0)
+                {
                     j = b[j - 1];
-                } else {
+                }
+                else
+                {
                     b[i] = 0;
                     i++;
                 }
@@ -28,8 +36,10 @@ namespace Tubes3_PuntangPanting
             return b;
         }
 
-        public static int Match(string pattern, string text) {
-            if (string.IsNullOrEmpty(pattern) || string.IsNullOrEmpty(text)) {
+        public static int Match(string pattern, string text)
+        {
+            if (string.IsNullOrEmpty(pattern) || string.IsNullOrEmpty(text))
+            {
                 return -1;
             }
 
@@ -40,16 +50,23 @@ namespace Tubes3_PuntangPanting
             int i = 0;
             int j = 0;
 
-            while (i < n) {
-                if (pattern[j] == text[i]) {
-                    if (j == m - 1) {
+            while (i < n)
+            {
+                if (pattern[j] == text[i])
+                {
+                    if (j == m - 1)
+                    {
                         return i - m + 1;
                     }
                     i++;
                     j++;
-                } else if (j > 0) {
+                }
+                else if (j > 0)
+                {
                     j = b[j - 1];
-                } else {
+                }
+                else
+                {
                     i++;
                 }
             }

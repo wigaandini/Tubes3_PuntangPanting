@@ -3,19 +3,24 @@ using System.Collections.Generic;
 
 namespace Tubes3_PuntangPanting
 {
-    public class BM {
-        private static Dictionary<char, int> LastOccurrence(string pattern) {
+    public class BM
+    {
+        private static Dictionary<char, int> LastOccurrence(string pattern)
+        {
             var last = new Dictionary<char, int>();
 
-            for (int i = 0; i < pattern.Length; i++) {
+            for (int i = 0; i < pattern.Length; i++)
+            {
                 last[pattern[i]] = i;
             }
 
             return last;
         }
 
-        public static int Match(string pattern, string text) {
-            if (string.IsNullOrEmpty(pattern) || string.IsNullOrEmpty(text)) {
+        public static int Match(string pattern, string text)
+        {
+            if (string.IsNullOrEmpty(pattern) || string.IsNullOrEmpty(text))
+            {
                 return -1;
             }
 
@@ -24,25 +29,36 @@ namespace Tubes3_PuntangPanting
             int m = pattern.Length;
             int i = m - 1;
 
-            if (i > n - 1) {
+            if (i > n - 1)
+            {
                 return -1;
-            } else {
+            }
+            else
+            {
                 int j = m - 1;
-                while (true) {
-                    if (pattern[j] == text[i]) {
-                        if (j == 0) {
+                while (true)
+                {
+                    if (pattern[j] == text[i])
+                    {
+                        if (j == 0)
+                        {
                             return i;
-                        } else {
+                        }
+                        else
+                        {
                             i--;
                             j--;
                         }
-                    } else {
+                    }
+                    else
+                    {
                         int lo = last.ContainsKey(text[i]) ? last[text[i]] : -1;
                         i += m - Math.Min(j, 1 + lo);
                         j = m - 1;
                     }
 
-                    if (i > n - 1) {
+                    if (i > n - 1)
+                    {
                         break;
                     }
                 }
