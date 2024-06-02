@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace TestProgram {
-    public class KMPAlgo {
+namespace Test {
+    public class KM {
         private static int[] Border(string pattern) {
             int[] b = new int[pattern.Length];
             b[0] = 0;

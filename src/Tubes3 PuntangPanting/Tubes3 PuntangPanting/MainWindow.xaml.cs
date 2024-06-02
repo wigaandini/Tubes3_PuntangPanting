@@ -72,21 +72,32 @@ namespace Tubes3_PuntangPanting
             }
         }
 
-        private void UploadImage1_Click(object sender, RoutedEventArgs e)
+    private void UploadImage1_Click(object sender, RoutedEventArgs e)
+{
+    OpenFileDialog openFileDialog = new OpenFileDialog();
+    if (openFileDialog.ShowDialog() == true)
+    {
+        string filePath = openFileDialog.FileName;
+        BitmapImage bitmap = new BitmapImage(new Uri(filePath));
+        Bitmap bp = new Bitmap(filePath);
+
+        // Convert the image to a format that supports direct pixel manipulation
+        Bitmap convertedBitmap = new Bitmap(bp.Width, bp.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+        using (Graphics g = Graphics.FromImage(convertedBitmap))
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                string filePath = openFileDialog.FileName;
-                BitmapImage bitmap = new BitmapImage(new Uri(filePath));
-                Bitmap bp = new Bitmap(filePath);
-                image1.Source = bitmap;
-                if (bp != null)
-                {
-                imgUpload = bp;
-                }
-            }
+            g.DrawImage(bp, new System.Drawing.Rectangle(0, 0, bp.Width, bp.Height));
         }
+
+        image1.Source = bitmap;
+
+        if (convertedBitmap != null)
+        {
+            imgUpload = convertedBitmap;
+        }
+    }
+}
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -97,24 +108,14 @@ namespace Tubes3_PuntangPanting
                 double minPercentage = 70.0;
                 Stopwatch stopwatch = new Stopwatch();
 
-                // Read data from the database once
-                DataTable biodataTable = db.ReadBiodata();
-                DataTable sidikJariTable = db.ReadSidikJari();
-
-                Console.WriteLine("Starting matching process...");
-
                 // Convert DataTable to List<string> for asciiData
                 List<string> asciiData = new List<string>();
                 foreach (DataRow row in sidikJariTable.Rows)
                 {
                     string asciiString = row["berkas_citra"].ToString();
 
-                    // Encode the ASCII string to UTF-8
-                    byte[] utf8Bytes = Encoding.UTF8.GetBytes(asciiString);
-                    string utf8String = Encoding.UTF8.GetString(utf8Bytes);
-
-                    asciiData.Add(utf8String);
-                }
+                    asciiData.Add(asciiString);
+                }   
 
                 (int textIndex, int matchIndex, double similarity) result;
                 if (isKMPSelected)
@@ -228,14 +229,11 @@ namespace Tubes3_PuntangPanting
         private void DisplayMatchedFingerprint(string imagePath)
         {
             // Assuming you have an Image control named imgMatchedFingerprint
-            string currentDirectory = System.IO.Directory.GetCurrentDirectory();
-            string absolutePath = System.IO.Path.Combine(currentDirectory, imagePath);
-
-            if (!string.IsNullOrEmpty(imagePath) && System.IO.File.Exists(absolutePath))
-            {
-                imgMatchedFingerprint.Source = new BitmapImage(new Uri(absolutePath));
+            var path = Path.Combine(Environment.CurrentDirectory,imagePath);
+            var uri = new Uri(path);
+            if(uri !=null) {
+                imgMatchedFingerprint.Source = new BitmapImage(uri);
             }
-            else
             {
                 Console.WriteLine("Image path is invalid or file does not exist.");
                 MessageBox.Show("Ga masuk");
@@ -270,6 +268,9 @@ namespace Tubes3_PuntangPanting
                 }
                 biodataLabel.Text = biodataText.ToString();
                 biodataLabel.Foreground = new SolidColorBrush(Colors.White);
+                biodataLabel.TextAlignment= TextAlignment.Center;
+                biodataLabel.HorizontalAlignment= HorizontalAlignment.Center;
+                biodataLabel.HorizontalAlignment = HorizontalAlignment.Center;
             }
         }
 

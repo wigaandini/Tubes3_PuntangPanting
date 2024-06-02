@@ -35,6 +35,7 @@ titles = [
     "DHut", "DPi", "DGz", "DStat", "DTrT", 
     "DTrKes", "MTi", "Mak, msip", "Mak, msi",
 ]
+
 def random_case(char):
     result = ""
     for c in char:
@@ -197,7 +198,7 @@ db_connection = mysql.connector.connect(
     user="root",
     password="bismillah.33",
     database="stima",
-     connection_timeout=10000
+    connection_timeout=10000000
 )
 
 # Create a cursor object to execute SQL queries
@@ -223,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `biodata` (
 
 create_sidik_jari_table = """
 CREATE TABLE IF NOT EXISTS `sidik_jari` (
-  `berkas_citra` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `berkas_citra` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `nama` varchar(100) DEFAULT NULL,
   `path` text NOT NULL,
   PRIMARY KEY (`path`(255))
@@ -236,7 +237,7 @@ cursor.execute(create_sidik_jari_table)
 # Create a cursor object to execute SQL queries
 
 # Path to the folder containing images
-image_folder_path = "src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/"
+image_folder_path = "src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data"
 files = os.listdir(image_folder_path)
 
 # Filter only .bmp files
@@ -251,7 +252,7 @@ unique_paths = set()
 unique_names = set()
 # Create one-to-many relationship
 i = 0
-while i < 1000:
+while i < 100:
     real_name = generate_unique_name(fake)
     NIK = str(fake.random_number(digits=16, fix_len=True))
     nama = generate_random_corrupt_name(real_name)

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace TestProgram {
-    public class BMAlgo {
+namespace Test {
+    public class BM {
         private static Dictionary<char, int> LastOccurrence(string pattern) {
             var last = new Dictionary<char, int>();
 

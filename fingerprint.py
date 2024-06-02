@@ -1,24 +1,24 @@
 from PIL import Image
-from fingerprint_sdk import FingerprintSensor
+import FingerprintSDK  # Assuming this is the SDK provided by your sensor manufacturer
 
 # Initialize the fingerprint sensor
-sensor = FingerprintSensor()
-sensor.connect()
+fingerprint_sensor = FingerprintSDK.FingerprintSensor()
 
-# Capture fingerprint image
-try:
-    print('Waiting for finger...')
+if fingerprint_sensor.initialize():
+    # Capture a fingerprint
+    captured_fingerprint_data = fingerprint_sensor.captureFingerprint()
 
-    while not sensor.isFingerPresent():
-        pass
+    if captured_fingerprint_data is not None:
+        # Convert fingerprint data to an image
+        fingerprint_image = Image.frombytes('L', (fingerprint_sensor.width, fingerprint_sensor.height),
+                                            captured_fingerprint_data)
 
-    img_data = sensor.captureImage()
-    img = Image.frombytes('L', (256, 288), img_data)
-    img.save('fingerprint.bmp')
+        # Save the fingerprint image
+        fingerprint_image.save('fingerprint_image.png')
+        print('Fingerprint image saved as fingerprint_image.png')
 
-    print('Fingerprint image saved as fingerprint.bmp')
+    else:
+        print('Failed to capture fingerprint')
 
-except Exception as e:
-    print('Error:', e)
-finally:
-    sensor.disconnect()
+else:
+    print('Failed to initialize fingerprint sensor')

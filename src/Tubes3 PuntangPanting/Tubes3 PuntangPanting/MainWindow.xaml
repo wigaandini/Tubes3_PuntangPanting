@@ -198,13 +198,15 @@
         CornerRadius="20"
         BorderThickness="1"
         Margin="15">
-                    <ScrollViewer VerticalAlignment="Center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ScrollViewer VerticalAlignment="Center" HorizontalAlignment="Center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <TextBlock 
             FontWeight="Medium" 
             FontSize="18"
             x:Name="biodataLabel"
             Text="Biodata List"
-            TextAlignment="Center" 
+            TextAlignment="Center"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
             TextWrapping="Wrap"
             Padding="20"
             FontFamily="/Font/#Dosis"

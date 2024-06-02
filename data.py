@@ -1,6 +1,6 @@
 from PIL import Image
 import os, json
-
+import numpy as np
 
 class KMP:
     def __init__(self, pattern, text):
@@ -211,7 +211,7 @@ def image_ascii(image_path, target_width=8, target_height=4):
 
     return ascii_data
 
-def image_asciii(image_path, target_width=8, target_height=4):
+def image_asciii(image_path):
     # Buka gambar
     img = Image.open(image_path)
     width, height = img.size
@@ -220,22 +220,21 @@ def image_asciii(image_path, target_width=8, target_height=4):
     img = img.convert('L')
 
     ascii_data = ''
-
-    for start_y in range(height - target_height + 1):
-        for start_x in range(width - target_width + 1):
-            binary_data = ''
-            for y in range(target_height):
-                for x in range(target_width):
-                    pixel_value = img.getpixel((start_x + x, start_y + y))
-                    # Create a binary string based on the pixel value
-                    binary_data += '0' if pixel_value < 128 else '1'
-
-            for i in range(0, len(binary_data), 8):
-                byte = binary_data[i:i+8]
-                if len(byte) == 8:
-                    ascii_char = chr(int(byte, 2))
-                    ascii_data += ascii_char
+    binary_data = ''
     
+
+    for y in range(height):
+        for x in range(width):
+            pixel_value = img.getpixel((x, y))
+            # Create a binary string based on the pixel value
+            binary_data += '0' if pixel_value < 128 else '1'
+            
+    for i in range(0, len(binary_data), 8):
+        byte = binary_data[i:i+8]
+        if len(byte) == 8:
+            ascii_char = chr(int(byte, 2))
+            ascii_data += ascii_char
+
     return ascii_data
 
 def find_dominant_dark_area(img):
@@ -291,29 +290,155 @@ def highest_dark_ascii(image_path):
 
     return ascii_data
 
+def image_ascii_optimized(image_path):
+    # Buka gambar
+    img = Image.open(image_path)
+    width, height = img.size
+
+    # Grayscaling image
+    img = img.convert('L')
+
+    # Ubah gambar menjadi array nilai pixel
+    img_data = np.array(img)
+
+    # Identifikasi baris dengan data unik
+    unique_rows = []
+    for y in range(height):
+        row = img_data[y, :]
+        if not np.all(row == 255):  # Abaikan baris yang semua pikselnya berwarna putih
+            unique_rows.append(y)
+
+    if not unique_rows:
+        return "No unique rows found."
+
+    # Ambil data dari baris dengan data unik pertama hingga baris dengan data unik terakhir
+    start_y = unique_rows[0]
+    end_y = unique_rows[-1]
+
+    # Crop gambar pada sumbu X sesuai baris yang ditemukan
+    crop_img = img_data[start_y:end_y + 1, :]
+
+    binary_data = ''
+
+    # Proses setiap pixel
+    for row in crop_img:
+        for pixel in row:
+            # Ubah pixel menjadi biner (0 jika di bawah 128, 1 jika 128 atau lebih)
+            binary_value = '0' if pixel < 128 else '1'
+            binary_data += binary_value
+
+    # Konversi setiap 8 biner menjadi karakter ASCII
+    ascii_data = ''
+    for i in range(0, len(binary_data), 8):
+        byte = binary_data[i:i+8]
+        if len(byte) == 8:
+            ascii_char = chr(int(byte, 2))
+            ascii_data += ascii_char
+
+    return ascii_data
+
+def mid_one(image_path):
+    # Buka gambar
+    img = Image.open(image_path)
+    width, height = img.size
+
+    # Grayscaling image
+    img = img.convert('L')
+
+    # Dapatkan baris 1-pixel dari tengah gambar
+    mid_height = height // 2
+
+    # Tentukan titik awal dan akhir untuk crop 80 piksel di tengah sumbu X
+    mid_width_start = max((width // 2) - 40, 0)
+    mid_width_end = min(mid_width_start + 80, width)
+
+    # Crop gambar untuk mendapatkan 80 piksel di tengah sumbu X
+    crop_img = img.crop((mid_width_start, mid_height, mid_width_end, mid_height + 1))
+
+    # Ubah gambar menjadi array nilai pixel
+    pixels = list(crop_img.getdata())
+
+    binary_data = ''
+
+    # Proses setiap pixel
+    for pixel in pixels:
+        # Ubah pixel menjadi biner (0 jika di bawah 128, 1 jika 128 atau lebih)
+        binary_value = '0' if pixel < 128 else '1'
+        binary_data += binary_value
+
+    # Konversi setiap 8 biner menjadi karakter ASCII
+    ascii_data = ''
+    for i in range(0, len(binary_data), 8):
+        byte = binary_data[i:i+8]
+        if len(byte) == 8:
+            ascii_char = chr(int(byte, 2))
+            ascii_data += ascii_char
+
+    return ascii_data
+
+def concentrate_one(image_path):
+    # Buka gambar
+    img = Image.open(image_path)
+    width, height = img.size
+
+    # Grayscaling image
+    img = img.convert('L')
+
+    # Ubah gambar menjadi array nilai pixel
+    img_data = np.array(img)
+
+    # Temukan baris dengan konsentrasi piksel hitam tertinggi
+    max_black_concentration = 0
+    max_row = 0
+    for i in range(height):
+        black_concentration = np.sum(img_data[i] < 128)
+        if black_concentration > max_black_concentration:
+            max_black_concentration = black_concentration
+            max_row = i
+
+    # Dapatkan baris dengan konsentrasi tertinggi
+    row_data = img_data[max_row]
+
+    binary_data = ''
+
+    # Proses setiap pixel
+    for pixel in row_data:
+        # Ubah pixel menjadi biner (0 jika di bawah 128, 1 jika 128 atau lebih)
+        binary_value = '0' if pixel < 128 else '1'
+        binary_data += binary_value
+
+    # Konversi setiap 8 biner menjadi karakter ASCII
+    ascii_data = ''
+    for i in range(0, len(binary_data), 8):
+        byte = binary_data[i:i+8]
+        if len(byte) == 8:
+            ascii_char = chr(int(byte, 2))
+            ascii_data += ascii_char
+
+    return ascii_data
 
 # # Contoh penggunaan
-# Contoh pemanggilan fungsi
+# # Contoh pemanggilan fungsi
 source_img = 'src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/1__M_Left_little_finger.BMP'
-source_img2 = 'src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/1__M_Left_little_finger.BMP'
-ascii_art = image_asciii(source_img)
-ascii_art_2 = highest_dark_ascii(source_img2)
+source_img2 = 'src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/1__M_Left_ring_finger.BMP'
+ascii_art = mid_one(source_img)
+ascii_art_2 = image_asciii(source_img2)
 def bm_search_timing():
-    bm = BM(source_img)
-    result = bm.search(source_img2)
+    bm = BM(ascii_art)
+    result = bm.search(ascii_art_2)
     if result != -1:
         print("bener kok")
-import timeit
-setup_code = """
-from __main__ import BM, source_img, source_img2
-"""
-execution_time = timeit.timeit(stmt=bm_search_timing, setup=setup_code, number=1)
+# import timeit
+# setup_code = """
+# from __main__ import BM, source_img, source_img2
+# """
+# execution_time = timeit.timeit(stmt=bm_search_timing, setup=setup_code, number=1)
 
-# Convert to milliseconds
-execution_time_ms = execution_time * 1000
+# # Convert to milliseconds
+# execution_time_ms = execution_time * 1000
 
-# Print the result
-print(f'BM Search Execution Time: {execution_time_ms} milliseconds')
+# # Print the result
+# print(f'BM Search Execution Time: {execution_time_ms} milliseconds')
 def test_all_images_in_folder(folder_path, method):
     # Get all files in the folder
     files = os.listdir(folder_path)
@@ -321,14 +446,13 @@ def test_all_images_in_folder(folder_path, method):
     # Filter only .bmp files
     bmp_files = [file for file in files if file.endswith('.BMP')]
 
-    pattern = specific_image_ascii(source_img)
+    pattern = mid_one(source_img)
     print(pattern)
     # Apply the function to all .bmp files
     for bmp_file in bmp_files:
         image_path = os.path.join(folder_path, bmp_file)
-        ascii_data = image_asciii(image_path)
+        ascii_data = image_ascii_optimized(image_path)
         
-
         # Use KMP to match the string
         if method == 'kmp':
             kmp = KMP(pattern, ascii_data)
@@ -338,11 +462,11 @@ def test_all_images_in_folder(folder_path, method):
             result = bm.search(ascii_data)
         if result != -1:
             print(f'{bmp_file} is similar to {source_img} at index {result}')
-            print(ascii_data)
+            # print(ascii_data)
             
-# import time
-# start = time.time()
-# char = test_all_images_in_folder("src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/", "kmpS")
-# end = time.time()
-# print(char)
-# print(f'BM: {end - start} seconds')
+import time
+start = time.time()
+char = test_all_images_in_folder("src/Tubes3 PuntangPanting/Tubes3 PuntangPanting/data/", "kmpS")
+end = time.time()
+print(char)
+print(f'BM: {end - start} seconds')
