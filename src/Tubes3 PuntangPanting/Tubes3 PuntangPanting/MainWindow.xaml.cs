@@ -26,11 +26,36 @@ namespace Tubes3_PuntangPanting
         {
             InitializeComponent();
 
-            // Custom database connection details
-            string customServer = "Fairuz";
-            string customUser = "root";
-            string customDatabase = "stima";
-            string customPassword = "bismillah.33";
+            bool customizeDatabase = AskForCustomization();
+            string customServer, customUser, customDatabase, customPassword;
+
+            if (customizeDatabase)
+            {
+                // Ask the user for database connection details
+                string input = Microsoft.VisualBasic.Interaction.InputBox("Enter database connection details separated by commas (Server, Username, Database, Password):", "Enter Connection Details", "");
+
+                // Split the input into individual parameters
+                string[] inputParams = input.Split(',');
+
+                if (inputParams.Length != 4)
+                {
+                    MessageBox.Show("Please enter all four parameters separated by commas.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Close(); // Close the application if input is invalid
+                    return; // Return to prevent further execution
+                }
+
+                customServer = inputParams[0].Trim();
+                customUser = inputParams[1].Trim();
+                customDatabase = inputParams[2].Trim();
+                customPassword = inputParams[3].Trim();
+            }
+            else
+            {
+                customServer = "Fairuz";
+                customUser = "root";
+                customDatabase = "stima";
+                customPassword = "bismillah.33";
+            }
 
             // Initialize database and create necessary tables
             db = new Database(customServer, customUser, customDatabase, customPassword);
@@ -42,15 +67,30 @@ namespace Tubes3_PuntangPanting
             sidikJariTable = db.ReadSidikJari();
 
             // Display biodata table content
-            DisplayBiodataTable();
+            if (biodataTable.Rows.Count > 0) // Use Rows.Count to get the row count
+            {
+                // Show a message indicating the number of rows and that data is present in the biodata table
+                MessageBox.Show($"There are {biodataTable.Rows.Count} rows of data in the biodata table.");
+            }
+            else
+            {
+                // Show a message indicating that there is no data in the biodata table
+                MessageBox.Show("No data is present in the biodata table.");
+            }
+
+            if (sidikJariTable.Rows.Count > 0)
+            {
+                MessageBox.Show($"There are {sidikJariTable.Rows.Count} rows of data in the sidik jari table.");
+            }
+            else
+            {
+                MessageBox.Show("No data is present in the sidik jari table.");
+            }
+
         }
-
-
-        /// Displays the biodata table content.
-        private void DisplayBiodataTable()
+        private bool AskForCustomization()
         {
-            DataTable dt = db.ReadBiodata();
-            MessageBox.Show(dt.Rows.Count > 0 ? "Data masuk ke tabel biodata" : "Tidak ada data di tabel biodata");
+            return MessageBox.Show("Do you want to customize the database connection details?", "Customize Database", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         }
 
 
@@ -149,7 +189,7 @@ namespace Tubes3_PuntangPanting
                         var result = Levenshtein.MatchWithLevenshtein(pattern, text, minPercentage, method == "kmp" ? 2 : 1);
                         similarities.TryAdd(path, result.similarity);
 
-                        if (result.similarity == 100.0) 
+                        if (result.similarity == 100.0)
                         {
                             state.Break();
                         }
