@@ -21,8 +21,6 @@ D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\App.g.cs
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.cache
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.lref
-D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\MainWindow.baml
-D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.g.resources
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.GeneratedMSBuildEditorConfig.editorconfig
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.AssemblyInfoInputs.cache
 D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.AssemblyInfo.cs
@@ -80,3 +78,5 @@ C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 
 C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.dll
 C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\refint\Tubes3 PuntangPanting.dll
 C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.pdb
+D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\MainWindow.baml
+D:\Kuliah\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.g.resources

@@ -53,7 +53,7 @@ namespace Tubes3_PuntangPanting
             {
                 customServer = "Fairuz";
                 customUser = "root";
-                customDatabase = "stima";
+                customDatabase = "s";
                 customPassword = "bismillah.33";
             }
 
@@ -137,20 +137,12 @@ namespace Tubes3_PuntangPanting
                 BitmapImage bitmap = new BitmapImage(new Uri(filePath));
                 Bitmap bp = new Bitmap(filePath);
 
-                // Convert the image to a format that supports direct pixel manipulation
-                Bitmap convertedBitmap = new Bitmap(bp.Width, bp.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                using (Graphics g = Graphics.FromImage(convertedBitmap))
-                {
-                    g.DrawImage(bp, new System.Drawing.Rectangle(0, 0, bp.Width, bp.Height));
-                }
+
 
                 image1.Source = bitmap;
 
                 // Store the converted image for later processing
-                if (convertedBitmap != null)
-                {
-                    imgUpload = convertedBitmap;
-                }
+                imgUpload = bp;
                 buttonUpload.Visibility = Visibility.Hidden;
 
             }
