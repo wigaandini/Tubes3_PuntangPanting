@@ -9,7 +9,7 @@
       "Tubes3 PuntangPanting/1.0.0": {
         "dependencies": {
           "MySql.Data": "8.4.0",
-          "System.Drawing.Common": "8.0.5"
+          "System.Drawing.Common": "8.0.6"
         },
         "runtime": {
           "Tubes3 PuntangPanting.dll": {}
@@ -120,14 +120,14 @@
         }
       },
       "System.Diagnostics.DiagnosticSource/7.0.2": {},
-      "System.Drawing.Common/8.0.5": {
+      "System.Drawing.Common/8.0.6": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/System.Drawing.Common.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.524.21704"
+            "fileVersion": "8.0.624.26909"
           }
         }
       },
@@ -220,7 +220,7 @@
       "System.Threading.Tasks.Extensions/4.5.4": {},
       "System.Windows.Extensions/4.7.0": {
         "dependencies": {
-          "System.Drawing.Common": "8.0.5"
+          "System.Drawing.Common": "8.0.6"
         }
       },
       "ZstdSharp.Port/0.7.1": {
@@ -323,12 +323,12 @@
       "path": "system.diagnostics.diagnosticsource/7.0.2",
       "hashPath": "system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512"
     },
-    "System.Drawing.Common/8.0.5": {
+    "System.Drawing.Common/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-n55wb6rL8YG254AG+SfQOSQencrcnpKAAcYyEcvBuO2pob7ltXuZ5skBBdvLJOLVPKd1Ya8+8ColIM5AtBo5ww==",
-      "path": "system.drawing.common/8.0.5",
-      "hashPath": "system.drawing.common.8.0.5.nupkg.sha512"
+      "sha512": "sha512-aSwRnJzz6fZ73JvWMMG0KvBwOnXsBTFtfHLriQyAPrDIZ+NrDfl15GWbO/A35k0dtH77D7jfxzEcFF7RONtU/w==",
+      "path": "system.drawing.common/8.0.6",
+      "hashPath": "system.drawing.common.8.0.6.nupkg.sha512"
     },
     "System.IO/4.3.0": {
       "type": "package",

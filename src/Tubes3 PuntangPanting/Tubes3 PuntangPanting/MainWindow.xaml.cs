@@ -142,8 +142,6 @@ namespace Tubes3_PuntangPanting
                 BitmapImage bitmap = new BitmapImage(new Uri(filePath));
                 Bitmap bp = new Bitmap(filePath);
 
-
-
                 image1.Source = bitmap;
 
                 // Store the converted image for later processing
