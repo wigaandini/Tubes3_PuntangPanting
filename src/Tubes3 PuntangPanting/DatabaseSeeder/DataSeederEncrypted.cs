@@ -512,7 +512,6 @@ namespace DatabaseSeeder
                         }
                         path = BitConverter.ToString(aes.Encrypt(pathByteArray));
 
-                        // Assuming image_ascii is a method to convert image to ASCII, replace this with actual logic
                         string berkas_citra = AsciiConverter.ImageToAscii(Path.Combine(bmpFile));
 
                         if (!uniquePaths.Contains(path))
