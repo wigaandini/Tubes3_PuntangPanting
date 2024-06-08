@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Tubes3_PuntangPanting
+namespace DatabaseSeeder
 {
     class SeedingProgram
     {
@@ -49,12 +49,12 @@ namespace Tubes3_PuntangPanting
 
             var customServer = "localhost";
             var customUser = "root";
-            var customDatabase = "datastima";
+            var customDatabase = "datastimaencrypted";
             var customPassword = "root";
             var connectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={customDatabase}";
-            string imageFolder = @"../Test/data";
+            string imageFolder = @"../Tubes3 PuntangPanting/data";
 
-            DataSeeder db = new DataSeeder(connectionString);
+            DataSeederEncrypted db = new DataSeederEncrypted(connectionString);
             db.CreateBiodataTable();
             db.CreateSidikJariTable();
             db.SeedFakeData(imageFolder);

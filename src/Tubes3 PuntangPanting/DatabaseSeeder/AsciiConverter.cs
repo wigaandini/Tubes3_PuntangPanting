@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 
-namespace Tubes3_PuntangPanting
+namespace DatabaseSeeder
 {
     class AsciiConverter
     {
