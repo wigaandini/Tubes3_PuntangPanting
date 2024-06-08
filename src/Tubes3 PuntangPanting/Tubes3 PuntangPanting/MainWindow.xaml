@@ -274,6 +274,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        
                     </Grid.ColumnDefinitions>
 
                     <!-- Search duration -->
@@ -330,6 +331,7 @@
                 <!-- Action buttons -->
                 <Grid Margin="30 10 30 20">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -467,6 +469,104 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
+
+
+                    <!--Toggle Button-->
+                    <StackPanel Grid.Column="2"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Orientation="Horizontal">
+                        <TextBlock Background="Transparent"
+                  Foreground="White"
+                  Text="Non Thread"
+                  FontFamily="/Font/#Dosis"
+                  FontSize="16"
+                  FontWeight="Medium"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"/>
+                        <!-- BOrder Toggle-->
+                        <Border  Margin="10 0 10 0"
+                x:Name="switch2"
+                BorderThickness="2"
+                CornerRadius="10"
+                Height="25"
+                Width="60"
+                Padding="1">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding}"
+                                    Value="True">
+                                            <Setter Property="BorderBrush"
+                                   Value="#FE6584"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="BorderBrush"
+                           Value="#39385D"/>
+                                </Style>
+                            </Border.Style>
+                            <!-- Splitter Toggle-->
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="ToggleButton">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Grid Background="Transparent"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Grid.Resources>
+                                <!-- Left Side Toggle-->
+                                <ToggleButton Width="20"
+                             HorizontalAlignment="Left"
+                             Height="20"
+                             Name="tbLeft2"
+                             IsChecked="{Binding IsChecked, ElementName=tbRight2}"/>
+                                <!-- Right Side Toggle-->
+                                <ToggleButton Width="20"
+                             HorizontalAlignment="Right"
+                             Height="20"
+                             Name="tbRight2"
+                             IsChecked="{Binding DataContext, ElementName=switch2}"/>
+
+                                <Canvas VerticalAlignment="Top">
+                                    <Ellipse Height="18"
+                            Width="18"
+                            Name="EL2">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Border}}"
+                                                Value="True">
+                                                        <Setter Property="Canvas.Right"
+                                               Value="2"/>
+                                                        <!-- 40-14-7 -->
+                                                        <Setter Property="Fill"
+                                               Value="#FE6584"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="Fill"
+                                       Value="#39385D"/>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                </Canvas>
+                            </Grid>
+                        </Border>
+
+                        <TextBlock Background="Transparent"
+                  Foreground="White"
+                  Text="Thread"
+                  FontFamily="/Font/#Dosis"
+                  FontSize="16"
+                  FontWeight="Medium"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"/>
+                    </StackPanel>
+
 
 
                 </Grid>

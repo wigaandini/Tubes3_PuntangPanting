@@ -131,7 +131,6 @@ namespace Tubes3_PuntangPanting
             }
         }
 
-
         /// Handles the upload image button click event.
 
         private void UploadImage1_Click(object sender, RoutedEventArgs e)
@@ -154,57 +153,59 @@ namespace Tubes3_PuntangPanting
             }
         }
 
+        async Task ProcessDataRow(DataRow datarow, ConcurrentDictionary<string, double> similarities, string pattern, string method)
+        {
+            string? text = datarow["berkas_citra"].ToString();
+            string? path = datarow["path"].ToString();
+            double minPercentage = 70.0;
+            if (text == null || path == null)
+            {
+                return;
+            }
+            var result = await Task.Run(() => Levenshtein.MatchWithLevenshtein(pattern, text, minPercentage, method == "kmp" ? 2 : 1));
+            similarities.TryAdd(path, result.similarity);
+        }
 
-
-        /// Handles the button click event to start image processing.
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                LoadingProgressBar.Visibility = Visibility.Visible; // Show loading indicator
+                LoadingProgressBar.Visibility = Visibility.Visible;
                 bool isKMPSelected = tbRight.IsChecked ?? false;
+                bool isThread = tbRight2.IsChecked ?? false;
                 if (imgUpload == null)
                 {
-                    return; // No image uploaded
+                    return;
                 }
 
-                // Convert the uploaded image to ASCII string pattern
                 string pattern = AsciiConverter.MidOneBitmap(imgUpload);
 
-                // Multithread lock mutex variable
                 string method = isKMPSelected ? "kmp" : "bm";
+
                 Stopwatch stopwatch = new Stopwatch();
                 ConcurrentDictionary<string, double> similarities = new ConcurrentDictionary<string, double>();
-                stopwatch.Start();
-
                 if (sidikJariTable.Rows.Count == 0 || sidikJariTable == null || DataTable.Equals(sidikJariTable, null) || DataTable.Equals(sidikJariTable, new DataTable()))
                 {
                     MessageBox.Show("No data in sidik jari table.");
                     return;
                 }
-
-
-                await Task.Run(() =>
+                stopwatch.Start();
+                if (isThread)
                 {
-                    Parallel.ForEach(sidikJariTable.AsEnumerable(), (datarow, state) =>
+                    var tasks = sidikJariTable.AsEnumerable().Select(async datarow =>
                     {
-                        string? text = datarow["berkas_citra"].ToString();
-                        string? path = datarow["path"].ToString();
-                        double minPercentage = 70.0;
-                        if (text == null || path == null)
-                        {
-                            return;
-                        }
-                        var result = Levenshtein.MatchWithLevenshtein(pattern, text, minPercentage, method == "kmp" ? 2 : 1);
-                        similarities.TryAdd(path, result.similarity);
-
-                        if (result.similarity == 100.0)
-                        {
-                            state.Break();
-                        }
+                        await ProcessDataRow(datarow, similarities, pattern, method);
                     });
-                });
 
+                    await Task.WhenAll(tasks);
+                }
+                else
+                {
+                    foreach (var datarow in sidikJariTable.AsEnumerable())
+                    {
+                        await ProcessDataRow(datarow, similarities, pattern, method);
+                    }
+                }
 
                 stopwatch.Stop();
                 var maxSimilarity = similarities.Values.Max();
@@ -280,7 +281,6 @@ namespace Tubes3_PuntangPanting
                 LoadingProgressBar.Visibility = Visibility.Hidden; // Hide loading indicator
             }
         }
-
 
         /// Displays the matched fingerprint image.
         private void DisplayMatchedFingerprint(string imagePath)

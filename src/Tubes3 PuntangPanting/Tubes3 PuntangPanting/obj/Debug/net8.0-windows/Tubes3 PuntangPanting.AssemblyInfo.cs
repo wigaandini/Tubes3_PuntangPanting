@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tubes3 PuntangPanting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e27fe3233d11e72104c81de0cb93bf711a6e7fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b4fec5419f2a019869fbc823a97f7b49b2aa41b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tubes3 PuntangPanting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tubes3 PuntangPanting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
