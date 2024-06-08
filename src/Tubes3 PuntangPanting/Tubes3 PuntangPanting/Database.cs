@@ -9,8 +9,7 @@ namespace Tubes3_PuntangPanting
         private string user;
         private string databaseName;
         private string password;
-        private MySqlConnection connection;
-
+        private MySqlConnection connection = new MySqlConnection();
         public Database(string server, string user, string databaseName, string password)
         {
             this.server = server;
@@ -110,7 +109,7 @@ namespace Tubes3_PuntangPanting
         public List<string> ReadNameLeft()
         {
             string query = "SELECT nama FROM `biodata`";
-            DataTable dataTable = ExecuteQuery(query);
+            DataTable? dataTable = ExecuteQuery(query);
 
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
@@ -120,8 +119,11 @@ namespace Tubes3_PuntangPanting
             List<string> dataList = new List<string>();
             foreach (DataRow row in dataTable.Rows)
             {
-                string value = row["nama"].ToString();
-                dataList.Add(value);
+                string? value = row["nama"]?.ToString();
+                if (value != null)
+                {
+                    dataList.Add(value);
+                }
             }
 
             return dataList;

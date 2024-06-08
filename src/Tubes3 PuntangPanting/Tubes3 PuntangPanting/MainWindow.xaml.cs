@@ -17,17 +17,22 @@ namespace Tubes3_PuntangPanting
 
     public partial class MainWindow : Window
     {
-        private Bitmap imgUpload; // Stores the uploaded image
-        private Database db; // Database instance
-        private DataTable biodataTable; // Table for storing biodata
-        private DataTable sidikJariTable; // Table for storing fingerprint data
+        private Bitmap? imgUpload;
+        private Database? db;
+        private DataTable biodataTable;
+        private DataTable sidikJariTable;
 
         public MainWindow()
         {
             InitializeComponent();
+            imgUpload = null; // Initialize imgUpload to null
+            db = null;
 
             bool customizeDatabase = AskForCustomization();
             string customServer, customUser, customDatabase, customPassword;
+
+            biodataTable = new DataTable();
+            sidikJariTable = new DataTable();
 
             if (customizeDatabase)
             {
@@ -53,7 +58,7 @@ namespace Tubes3_PuntangPanting
             {
                 customServer = "Fairuz";
                 customUser = "root";
-                customDatabase = "s";
+                customDatabase = "stima";
                 customPassword = "bismillah.33";
             }
 
@@ -61,6 +66,7 @@ namespace Tubes3_PuntangPanting
             db = new Database(customServer, customUser, customDatabase, customPassword);
             db.CreateBiodataTable();
             db.CreateSidikJariTable();
+
 
             // Read data from database
             biodataTable = db.ReadBiodata();
@@ -171,13 +177,24 @@ namespace Tubes3_PuntangPanting
                 ConcurrentDictionary<string, double> similarities = new ConcurrentDictionary<string, double>();
                 stopwatch.Start();
 
+                if (sidikJariTable.Rows.Count == 0 || sidikJariTable == null || DataTable.Equals(sidikJariTable, null) || DataTable.Equals(sidikJariTable, new DataTable()))
+                {
+                    MessageBox.Show("No data in sidik jari table.");
+                    return;
+                }
+
+
                 await Task.Run(() =>
                 {
                     Parallel.ForEach(sidikJariTable.AsEnumerable(), (datarow, state) =>
                     {
-                        string text = datarow["berkas_citra"].ToString();
-                        string path = datarow["path"].ToString();
+                        string? text = datarow["berkas_citra"].ToString();
+                        string? path = datarow["path"].ToString();
                         double minPercentage = 70.0;
+                        if (text == null || path == null)
+                        {
+                            return;
+                        }
                         var result = Levenshtein.MatchWithLevenshtein(pattern, text, minPercentage, method == "kmp" ? 2 : 1);
                         similarities.TryAdd(path, result.similarity);
 
@@ -188,11 +205,18 @@ namespace Tubes3_PuntangPanting
                     });
                 });
 
+
                 stopwatch.Stop();
                 var maxSimilarity = similarities.Values.Max();
                 var imagePath = similarities.FirstOrDefault(kv => kv.Value == maxSimilarity).Key;
 
                 durationLabel.Text = $"{stopwatch.ElapsedMilliseconds} ms";
+
+                if (db == null)
+                {
+                    MessageBox.Show("Database is not initialized.");
+                    return;
+                }
 
                 DataRow matchedData = db.ReadDataByBerkas(imagePath, sidikJariTable);
                 if (matchedData == null)
@@ -202,18 +226,22 @@ namespace Tubes3_PuntangPanting
                     return;
                 }
 
-                string sameName = matchedData["nama"].ToString();
+                string? sameName = matchedData["nama"].ToString();
                 string foundName = "";
                 List<string> arrName = db.ReadNameLeft();
 
                 // Compare names to find a match
-                foreach (string name in arrName)
+                if (sameName != null && arrName != null && arrName.Count > 0)
                 {
-                    bool isSame = TextProcessing.CompareWord(sameName, name);
-                    if (isSame)
+
+                    foreach (string name in arrName)
                     {
-                        foundName = name;
-                        break;
+                        bool isSame = TextProcessing.CompareWord(sameName, name);
+                        if (isSame)
+                        {
+                            foundName = name;
+                            break;
+                        }
                     }
                 }
 
@@ -225,15 +253,22 @@ namespace Tubes3_PuntangPanting
 
                 PercentageLabel.Text = $"{maxSimilarity}%";
 
-                if (matchedData != null)
+                string? imgPath = matchedData["path"].ToString();
+                if (imgPath == null)
                 {
-                    string imgPath = matchedData["path"].ToString();
-                    DisplayMatchedFingerprint(imgPath);
+                    MessageBox.Show("Image path not found.");
+                    return;
                 }
+                DisplayMatchedFingerprint(imgPath);
 
-                if (resData.Rows.Count > 0)
+                if (resData.Rows.Count > 0 && (sameName != null))
                 {
-                    DisplayBiodata(resData, sameName, matchedData["path"].ToString());
+                    string? path = matchedData["path"].ToString();
+                    if (path != null)
+                    {
+
+                        DisplayBiodata(resData, sameName, path);
+                    }
                 }
             }
             catch (Exception ex)

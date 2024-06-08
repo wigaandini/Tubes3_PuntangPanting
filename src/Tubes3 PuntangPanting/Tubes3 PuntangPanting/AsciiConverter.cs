@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace Tubes3_PuntangPanting
@@ -45,31 +46,50 @@ namespace Tubes3_PuntangPanting
             return ConvertBinaryToString(binaryData.ToString());
         }
 
-
-        public static string MidOne(string imagePath)
+        public static (int minX, int minY, int cropWidth, int cropHeight) CropImage(Bitmap img)
         {
-            using Bitmap img = new Bitmap(imagePath);
             int width = img.Width;
             int height = img.Height;
-            int midHeight = height / 2;
-            int midWidthStart = Math.Max((width / 2) - 40, 0);
-            int midWidthEnd = Math.Min(midWidthStart + 80, width);
-            StringBuilder binaryData = new StringBuilder();
 
-            for (int x = midWidthStart; x < midWidthEnd; x++)
+            int minX = width, minY = height, maxX = 0, maxY = 0;
+
+            int buffer = 4;
+
+            // Loop through each pixel to find the bounding box
+            for (int y = buffer; y < height - buffer; y++)
             {
-                Color pixel = img.GetPixel(x, midHeight);
-                binaryData.Append(pixel.R < 128 ? "0" : "1");
+                for (int x = buffer; x < width - buffer; x++)
+                {
+                    Color pixel = img.GetPixel(x, y);
+                    int grayValue = (int)(pixel.R * 0.3 + pixel.G * 0.59 + pixel.B * 0.11);
+
+                    if (grayValue < 128)
+                    {
+                        minX = Math.Min(minX, x);
+                        minY = Math.Min(minY, y);
+                        maxX = Math.Max(maxX, x);
+                        maxY = Math.Max(maxY, y);
+                    }
+                }
             }
 
-            return ConvertBinaryToString(binaryData.ToString());
+            if (minX > maxX || minY > maxY || minX == width || minY == height || maxX == 0 || maxY == 0 || maxX == width || maxY == height)
+            {
+                return (0, 0, width, height);
+            }
+
+            int cropWidth = maxX - minX + 1;
+            int cropHeight = maxY - minY + 1;
+            return (minX, minY, cropWidth, cropHeight);
         }
 
         public static string MidOneBitmap(Bitmap img)
         {
-            int width = img.Width;
-            int height = img.Height;
-            int midHeight = height / 2;
+            var (minX, minY, cropWidth, cropHeight) = CropImage(img);
+
+            int width = cropWidth - minX;
+            int height = cropHeight - minY;
+            int midHeight = 3 * height / 4;
             int midWidthStart = Math.Max((width / 2) - 40, 0);
             int midWidthEnd = Math.Min(midWidthStart + 80, width);
             StringBuilder binaryData = new StringBuilder();
