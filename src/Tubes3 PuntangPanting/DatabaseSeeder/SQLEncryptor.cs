@@ -51,7 +51,7 @@ namespace DatabaseSeeder
             string query = @"
             CREATE TABLE IF NOT EXISTS `sidik_jari` (
               `berkas_citra` TEXT NULL,
-              `realName` TEXT NULL,
+              `nama` TEXT NULL,
               `path` TEXT NOT NULL,
               PRIMARY KEY (`path`(255))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -228,18 +228,18 @@ namespace DatabaseSeeder
                             }
                             berkas_citra = BitConverter.ToString(aes.Encrypt(berkasCitraByteArray));
 
-                            string realName = reader.GetString(1);
-                            byte[] realNameByteArray = new byte[64];
-                            byte[] realNameBytes = Encoding.UTF8.GetBytes(realName);
-                            Array.Copy(realNameBytes, realNameByteArray, Math.Min(realNameBytes.Length, realNameByteArray.Length));
+                            string nama = reader.GetString(1);
+                            byte[] namaByteArray = new byte[64];
+                            byte[] namaBytes = Encoding.UTF8.GetBytes(nama);
+                            Array.Copy(namaBytes, namaByteArray, Math.Min(namaBytes.Length, namaByteArray.Length));
 
-                            for (int k = realNameBytes.Length; k < realNameByteArray.Length; k++)
+                            for (int k = namaBytes.Length; k < namaByteArray.Length; k++)
                             {
-                                realNameByteArray[k] = 0;
+                                namaByteArray[k] = 0;
                             }
-                            realName = BitConverter.ToString(aes.Encrypt(realNameByteArray));
+                            nama = BitConverter.ToString(aes.Encrypt(namaByteArray));
 
-                            var sidikJariData = (berkas_citra, realName, path);
+                            var sidikJariData = (berkas_citra, nama, path);
                             sidikJariRecords.Add(sidikJariData);
                             uniquePaths.Add(path);
                         }
@@ -265,12 +265,12 @@ namespace DatabaseSeeder
                 try
                 {
                     var insertBiodata = @"
-                    INSERT INTO biodata (
-                        NIK, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah,
-                        alamat, agama, status_perkawinan, pekerjaan, kewarganegaraan
-                    ) VALUES (@NIK, @nama, @tempat_lahir, @tanggalLahir, @jenis_kelamin, @golongan_darah,
-                        @alamat, @agama, @status_perkawinan, @pekerjaan, @kewarganegaraan)
-                ";
+INSERT INTO biodata (
+NIK, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah,
+alamat, agama, status_perkawinan, pekerjaan, kewarganegaraan
+) VALUES (@NIK, @nama, @tempat_lahir, @tanggalLahir, @jenis_kelamin, @golongan_darah,
+@alamat, @agama, @status_perkawinan, @pekerjaan, @kewarganegaraan)
+";
 
                     using (var command = new MySqlCommand(insertBiodata, targetConnection, transaction))
                     {
@@ -306,8 +306,7 @@ namespace DatabaseSeeder
                         transaction.Commit();
                         Console.WriteLine("Inserted records into biodata table.");
                     }
-                }
-                catch (Exception ex)
+catch (Exception ex)
                 {
                     transaction.Rollback();
                     Console.WriteLine($"Error inserting records into biodata table: {ex.Message}");
@@ -322,21 +321,21 @@ namespace DatabaseSeeder
                 try
                 {
                     var insertSidikJari = @"
-                    INSERT INTO sidik_jari (
-                        berkas_citra, realName, path
-                    ) VALUES (@berkas_citra, @realName, @path)
-                ";
+INSERT INTO sidik_jari (
+berkas_citra, nama, path
+) VALUES (@berkas_citra, @nama, @path)
+";
 
                     using (var command = new MySqlCommand(insertSidikJari, targetConnection, transaction))
                     {
                         command.Parameters.Add("@berkas_citra", MySqlDbType.Text);
-                        command.Parameters.Add("@realName", MySqlDbType.Text);
+                        command.Parameters.Add("@nama", MySqlDbType.Text);
                         command.Parameters.Add("@path", MySqlDbType.Text);
 
                         foreach (var sidikJari in sidikJariRecords)
                         {
                             command.Parameters["@berkas_citra"].Value = sidikJari.Item1;
-                            command.Parameters["@realName"].Value = sidikJari.Item2;
+                            command.Parameters["@nama"].Value = sidikJari.Item2;
                             command.Parameters["@path"].Value = sidikJari.Item3;
 
                             command.ExecuteNonQuery();
@@ -353,33 +352,34 @@ namespace DatabaseSeeder
                 }
             }
         }
+    }
 
-        static void Main(string[] args)
+    static void Main(string[] args)
+    {
+        var customServer = "Fairuz";
+        var customUser = "root";
+        var sourceDatabase = "dummy";
+        var targetDatabase = "dummyenc";
+        var customPassword = "bismillah.33";
+        var sourceConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={sourceDatabase}";
+        var targetConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={targetDatabase}";
+
+        SQLEncryptor sqe = new SQLEncryptor(sourceConnectionString, targetConnectionString);
+
+        try
         {
-            var customServer = "Fairuz";
-            var customUser = "root";
-            var sourceDatabase = "dummy";
-            var targetDatabase = "dummyenc";
-            var customPassword = "bismillah.33";
-            var sourceConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={sourceDatabase}";
-            var targetConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={targetDatabase}";
+            sqe.CreateBiodataTable();
+            sqe.CreateSidikJariTable();
+            sqe.EncryptDatabase();
 
-            SQLEncryptor sqe = new SQLEncryptor(sourceConnectionString, targetConnectionString);
-
-            try
-            {
-                sqe.CreateBiodataTable();
-                sqe.CreateSidikJariTable();
-                sqe.EncryptDatabase();
-
-                Console.WriteLine("Data successfully encrypted and copied to the new database.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred: " + ex.Message);
-            }
+            Console.WriteLine("Data successfully encrypted and copied to the new database.");
         }
-   
-   
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
+        }
     }
 }
+}
+
+
