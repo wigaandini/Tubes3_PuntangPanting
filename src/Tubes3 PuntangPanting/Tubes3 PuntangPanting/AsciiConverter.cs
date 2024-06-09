@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -39,18 +38,10 @@ namespace Tubes3_PuntangPanting
 
         public static string ImageToAscii(string imagePath)
         {
-            const bool isCropped = true;
             using var img = new Bitmap(imagePath);
             int minY, minX, maxY, maxX;
-            if (isCropped)
-            {
-                (minX, minY, maxX, maxY) = CropImage(img);
-                ReturnImage(img, minX, minY, maxX, maxY, imagePath);
-            }
-            else
-            {
-                (minX, minY, maxX, maxY) = (0, 0, img.Width, img.Height);
-            }
+
+            (minX, minY, maxX, maxY) = (0, 0, img.Width, img.Height);
             StringBuilder binaryData = new StringBuilder((maxX - minX) * (maxY - minY));
 
             for (int y = minY; y < maxY; y++)
@@ -69,11 +60,13 @@ namespace Tubes3_PuntangPanting
         public static (int minX, int minY, int maxX, int maxY) CropImage(Bitmap img)
         {
             int width = img.Width, height = img.Height;
-            int minX = width, minY = height, maxX = 0, maxY = 0;
             const int buffer = 4;
+            int minX = width, minY = height, maxX = 0, maxY = 0;
+            const int threshold = 20;
 
             for (int y = buffer; y < height - buffer; y++)
             {
+                int count = 0;
                 for (int x = buffer; x < width - buffer; x++)
                 {
                     Color pixel = img.GetPixel(x, y);
@@ -81,11 +74,15 @@ namespace Tubes3_PuntangPanting
 
                     if (grayValue < 128)
                     {
+                        count++;
                         minX = Math.Min(minX, x);
-                        minY = Math.Min(minY, y);
                         maxX = Math.Max(maxX, x);
-                        maxY = Math.Max(maxY, y);
                     }
+                }
+                if (count >= threshold)
+                {
+                    minY = Math.Min(minY, y);
+                    maxY = Math.Max(maxY, y);
                 }
             }
 
@@ -104,7 +101,7 @@ namespace Tubes3_PuntangPanting
 
             int width = maxX - minX;
             int height = maxY - minY;
-            int midHeight = 2 * height / 4;
+            int midHeight = 5 * height / 8;
 
             int midWidthStart = Math.Max((width / 2) - 40, 0);
             int midWidthEnd = Math.Min(midWidthStart + 80, width);

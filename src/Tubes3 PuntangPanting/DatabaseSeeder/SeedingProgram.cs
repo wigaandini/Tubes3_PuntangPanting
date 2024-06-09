@@ -41,7 +41,7 @@ namespace DatabaseSeeder
 
             string customServer = "Fairuz";
             string customUser = "root";
-            string customDatabase = "stimadbenc";
+            string customDatabase = "stima";
             string customPassword = "bismillah.33";
 
             if (customizeInput == "y")
@@ -94,8 +94,8 @@ namespace DatabaseSeeder
 
             string customServer = "Fairuz";
             string customUser = "root";
-            string sourceDatabase = "stimadb";
-            string targetDatabase = "stimaencdb";
+            string sourceDatabase = "stima";
+            string targetDatabase = "stima_enc";
             string customPassword = "bismillah.33";
 
             if (customizeInput == "y")

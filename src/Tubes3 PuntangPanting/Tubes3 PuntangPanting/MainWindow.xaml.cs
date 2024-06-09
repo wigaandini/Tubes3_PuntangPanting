@@ -25,6 +25,8 @@ namespace Tubes3_PuntangPanting
             0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
         };
 
+        private CancellationTokenSource cts = new CancellationTokenSource();
+
         private readonly CustomAes aes;
         private Database? db;
         private DataTable biodataTable = new();
@@ -65,7 +67,7 @@ namespace Tubes3_PuntangPanting
             {
                 customServer = "Fairuz";
                 customUser = "root";
-                customDatabase = "stimadbenc";
+                customDatabase = "stima";
                 customPassword = "bismillah.33";
             }
 
@@ -118,7 +120,7 @@ namespace Tubes3_PuntangPanting
             if (openFileDialog.ShowDialog() == true)
             {
                 string filePath = openFileDialog.FileName;
-                BitmapImage bitmap = new(new Uri(filePath));
+                BitmapImage bitmap = new BitmapImage(new Uri(filePath));
                 imgUpload = new Bitmap(filePath);
 
                 image1.Source = bitmap;
@@ -143,8 +145,12 @@ namespace Tubes3_PuntangPanting
 
         private async Task ProcessDataRow(DataRow datarow, ConcurrentDictionary<string, double> similarities, string pattern, string method)
         {
-            string? text = datarow["berkas_citra"].ToString();
             string? path = datarow["path"].ToString();
+            if(path == null)
+            {
+                return;
+            }
+            string? text = await Task.Run(() => AsciiConverter.ImageToAscii(path));
 
             if (text == null || path == null)
                 return;
@@ -152,7 +158,14 @@ namespace Tubes3_PuntangPanting
 
             const double minPercentage = 50.0;
             var result = await Task.Run(() => Levenshtein.MatchWithLevenshtein(pattern, decryptedText, minPercentage, method == "kmp" ? 2 : 1));
-            similarities.TryAdd(path, result.similarity);
+            if (result.similarity > minPercentage)
+            {
+                similarities.TryAdd(path, result.similarity);
+                if (result.similarity == 100.0)
+                {
+                    cts.Cancel();
+                }
+            }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -199,7 +212,7 @@ namespace Tubes3_PuntangPanting
                 if (maxSimilarity < 50)
                 {
                     PercentageLabel.Text = $"{maxSimilarity:F2}%";
-                    string fullPath = Path.Combine(Environment.CurrentDirectory,"no-data.jpg");
+                    string fullPath = Path.Combine(Environment.CurrentDirectory, "no-data.jpg");
 
                     if (!File.Exists(fullPath))
                     {
@@ -298,7 +311,25 @@ namespace Tubes3_PuntangPanting
             }
             catch (Exception ex)
             {
+                PercentageLabel.Text = $"{0:F2}%";
+                string fullPath = Path.Combine(Environment.CurrentDirectory, "no-data.jpg");
+
+                if (!File.Exists(fullPath))
+                {
+                    MessageBox.Show($"File not found: {fullPath}");
+                    return;
+                }
+
+                BitmapImage bitmap = new();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(fullPath);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                imgMatchedFingerprint.Source = bitmap;
+                biodataLabel.Text = "No Data Match with > 50% Similarities Found";
                 MessageBox.Show($"An error occurred: {ex.Message}");
+                
             }
             finally
             {

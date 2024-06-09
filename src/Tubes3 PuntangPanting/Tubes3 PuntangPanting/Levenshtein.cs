@@ -67,7 +67,11 @@ namespace Tubes3_PuntangPanting
                 return (0, matchIndex, 100.0);
             }
 
-            for (int i = 0; i <= text.Length - pattern.Length; i++)
+
+            int startPartition = 3 * text.Length / 5; 
+            int endPartition = 4 * text.Length / 5; 
+
+            for (int i = startPartition; i <= endPartition - pattern.Length; i++)
             {
                 string substring = text.Substring(i, pattern.Length);
                 double similarity = CalculateSimilarityPercentage(pattern, substring);
