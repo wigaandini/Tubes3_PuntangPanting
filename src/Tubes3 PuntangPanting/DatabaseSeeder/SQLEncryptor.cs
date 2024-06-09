@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
 
-//USE THIS IF YOU ARE ENCRYPTING AN EXISTING DATABASE
 namespace DatabaseSeeder
 {
     public class SQLEncryptor
@@ -13,7 +12,8 @@ namespace DatabaseSeeder
         private static MySqlConnection sourceConnection;
         private static MySqlConnection targetConnection;
 
-        public SQLEncryptor(string sourceConnectionString, string targetConnectionString){
+        public SQLEncryptor(string sourceConnectionString, string targetConnectionString)
+        {
             sourceConnection = new MySqlConnection(sourceConnectionString);
             targetConnection = new MySqlConnection(targetConnectionString);
         }
@@ -90,7 +90,6 @@ namespace DatabaseSeeder
                 0xab, 0xf7, 0x4e, 0x35, 0x0b, 0x34, 0x78, 0x55
             };
 
-            // Example IV (128-bit)
             byte[] iv = new byte[16] {
                 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
@@ -168,7 +167,8 @@ namespace DatabaseSeeder
                         byte[] alamatBytes = Encoding.UTF8.GetBytes(alamat);
                         Array.Copy(alamatBytes, alamatByteArray, Math.Min(alamatBytes.Length, alamatByteArray.Length));
 
-                        for (int j = alamatBytes.Length; j < alamatByteArray.Length; j++){
+                        for (int j = alamatBytes.Length; j < alamatByteArray.Length; j++)
+                        {
                             alamatByteArray[j] = 0;
                         }
                         alamat = BitConverter.ToString(aes.Encrypt(alamatByteArray));
@@ -181,7 +181,8 @@ namespace DatabaseSeeder
                         byte[] pekerjaanBytes = Encoding.UTF8.GetBytes(pekerjaan);
                         Array.Copy(pekerjaanBytes, pekerjaanByteArray, Math.Min(pekerjaanBytes.Length, pekerjaanByteArray.Length));
 
-                        for (int j = pekerjaanBytes.Length; j < pekerjaanByteArray.Length; j++){
+                        for (int j = pekerjaanBytes.Length; j < pekerjaanByteArray.Length; j++)
+                        {
                             pekerjaanByteArray[j] = 0;
                         }
                         pekerjaan = BitConverter.ToString(aes.Encrypt(pekerjaanByteArray));
@@ -200,7 +201,7 @@ namespace DatabaseSeeder
             {
                 using (var reader = selectCommand.ExecuteReader())
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         string berkas_citra = reader.GetString(0);
 
@@ -209,7 +210,8 @@ namespace DatabaseSeeder
                         byte[] pathBytes = Encoding.UTF8.GetBytes(path);
                         Array.Copy(pathBytes, pathByteArray, Math.Min(pathBytes.Length, pathByteArray.Length));
 
-                        for(int k = pathBytes.Length; k < pathByteArray.Length; k++){
+                        for (int k = pathBytes.Length; k < pathByteArray.Length; k++)
+                        {
                             pathByteArray[k] = 0;
                         }
                         path = BitConverter.ToString(aes.Encrypt(pathByteArray));
@@ -219,8 +221,9 @@ namespace DatabaseSeeder
                             byte[] berkasCitraByteArray = new byte[2304];
                             byte[] berkasCitraBytes = Encoding.UTF8.GetBytes(berkas_citra);
                             Array.Copy(berkasCitraBytes, berkasCitraByteArray, Math.Min(berkasCitraBytes.Length, berkasCitraByteArray.Length));
-                            
-                            for(int k = berkasCitraBytes.Length; k < berkasCitraByteArray.Length; k++){
+
+                            for (int k = berkasCitraBytes.Length; k < berkasCitraByteArray.Length; k++)
+                            {
                                 berkasCitraByteArray[k] = 0;
                             }
                             berkas_citra = BitConverter.ToString(aes.Encrypt(berkasCitraByteArray));
@@ -230,7 +233,8 @@ namespace DatabaseSeeder
                             byte[] realNameBytes = Encoding.UTF8.GetBytes(realName);
                             Array.Copy(realNameBytes, realNameByteArray, Math.Min(realNameBytes.Length, realNameByteArray.Length));
 
-                            for(int k = realNameBytes.Length; k < realNameByteArray.Length; k++){
+                            for (int k = realNameBytes.Length; k < realNameByteArray.Length; k++)
+                            {
                                 realNameByteArray[k] = 0;
                             }
                             realName = BitConverter.ToString(aes.Encrypt(realNameByteArray));
@@ -248,6 +252,14 @@ namespace DatabaseSeeder
             }
 
             targetConnection.Open();
+            InsertBiodataRecords(biodataRecords);
+            InsertSidikJariRecords(sidikJariRecords);
+            targetConnection.Close();
+            sourceConnection.Close();
+        }
+
+        private void InsertBiodataRecords(List<(string, string, string, string, string, string, string, string, string, string, string)> biodataRecords)
+        {
             using (var transaction = targetConnection.BeginTransaction())
             {
                 try
@@ -298,20 +310,57 @@ namespace DatabaseSeeder
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    Console.WriteLine($"Error inserting records: {ex.Message}");
+                    Console.WriteLine($"Error inserting records into biodata table: {ex.Message}");
                 }
             }
+        }
 
-            sourceConnection.Close();
+        private void InsertSidikJariRecords(List<(string, string, string)> sidikJariRecords)
+        {
+            using (var transaction = targetConnection.BeginTransaction())
+            {
+                try
+                {
+                    var insertSidikJari = @"
+                    INSERT INTO sidik_jari (
+                        berkas_citra, realName, path
+                    ) VALUES (@berkas_citra, @realName, @path)
+                ";
+
+                    using (var command = new MySqlCommand(insertSidikJari, targetConnection, transaction))
+                    {
+                        command.Parameters.Add("@berkas_citra", MySqlDbType.Text);
+                        command.Parameters.Add("@realName", MySqlDbType.Text);
+                        command.Parameters.Add("@path", MySqlDbType.Text);
+
+                        foreach (var sidikJari in sidikJariRecords)
+                        {
+                            command.Parameters["@berkas_citra"].Value = sidikJari.Item1;
+                            command.Parameters["@realName"].Value = sidikJari.Item2;
+                            command.Parameters["@path"].Value = sidikJari.Item3;
+
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                        Console.WriteLine("Inserted records into sidik_jari table.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine($"Error inserting records into sidik_jari table: {ex.Message}");
+                }
+            }
         }
 
         static void Main(string[] args)
         {
-            var customServer = "localhost";
+            var customServer = "Fairuz";
             var customUser = "root";
-            var sourceDatabase = "datastima";
-            var targetDatabase = "datastimaencrypted";
-            var customPassword = "root";
+            var sourceDatabase = "dummy";
+            var targetDatabase = "dummyenc";
+            var customPassword = "bismillah.33";
             var sourceConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={sourceDatabase}";
             var targetConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={targetDatabase}";
 
@@ -319,7 +368,6 @@ namespace DatabaseSeeder
 
             try
             {
-                //CreateNewDatabase(targetDatabase);
                 sqe.CreateBiodataTable();
                 sqe.CreateSidikJariTable();
                 sqe.EncryptDatabase();
@@ -331,5 +379,7 @@ namespace DatabaseSeeder
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
+   
+   
     }
 }
