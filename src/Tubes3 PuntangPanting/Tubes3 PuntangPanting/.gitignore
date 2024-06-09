@@ -125,9 +125,11 @@ _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_    
 
-# Build files
-bin/
-obj/
+# Ignore bin and obj directories including all subfiles and subdirectories
+**/bin/
+**/obj/
+
+**/.vs/
 
 # User-specific files
 .vs/
