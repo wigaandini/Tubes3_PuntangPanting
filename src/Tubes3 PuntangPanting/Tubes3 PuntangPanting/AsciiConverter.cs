@@ -100,11 +100,11 @@ namespace Tubes3_PuntangPanting
 
         public static string MidOneBitmap(Bitmap img)
         {
-            var (minX, minY, maxX, maxY) = CropImage(img);
+            var (minX, minY, maxX, maxY) = (0, 0, img.Width, img.Height);
 
             int width = maxX - minX;
             int height = maxY - minY;
-            int midHeight = 3 * height / 4;
+            int midHeight = 2 * height / 4;
 
             int midWidthStart = Math.Max((width / 2) - 40, 0);
             int midWidthEnd = Math.Min(midWidthStart + 80, width);

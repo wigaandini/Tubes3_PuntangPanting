@@ -128,6 +128,8 @@ nCrunchTemp_
 # Ignore bin and obj directories including all subfiles and subdirectories
 **/bin/
 **/obj/
+/obj/
+obj/
 
 **/.vs/
 

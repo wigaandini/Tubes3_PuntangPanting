@@ -306,7 +306,8 @@ alamat, agama, status_perkawinan, pekerjaan, kewarganegaraan
                         transaction.Commit();
                         Console.WriteLine("Inserted records into biodata table.");
                     }
-catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     transaction.Rollback();
                     Console.WriteLine($"Error inserting records into biodata table: {ex.Message}");
@@ -353,33 +354,6 @@ berkas_citra, nama, path
             }
         }
     }
-
-    static void Main(string[] args)
-    {
-        var customServer = "Fairuz";
-        var customUser = "root";
-        var sourceDatabase = "dummy";
-        var targetDatabase = "dummyenc";
-        var customPassword = "bismillah.33";
-        var sourceConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={sourceDatabase}";
-        var targetConnectionString = $"Server={customServer};User Id={customUser};Password={customPassword};Database={targetDatabase}";
-
-        SQLEncryptor sqe = new SQLEncryptor(sourceConnectionString, targetConnectionString);
-
-        try
-        {
-            sqe.CreateBiodataTable();
-            sqe.CreateSidikJariTable();
-            sqe.EncryptDatabase();
-
-            Console.WriteLine("Data successfully encrypted and copied to the new database.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("An error occurred: " + ex.Message);
-        }
-    }
-}
 }
 
 

@@ -48,7 +48,7 @@ namespace DatabaseSeeder
             string query = @"
             CREATE TABLE IF NOT EXISTS `sidik_jari` (
               `berkas_citra` TEXT NULL,
-              `realName` TEXT NULL,
+              `nama` TEXT NULL,
               `path` TEXT NOT NULL,
               PRIMARY KEY (`path`(255))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -80,8 +80,7 @@ namespace DatabaseSeeder
         {
             string fakeName = fake.Name.FullName();
             string cleanedName = RemoveNonAlphabetic(fakeName);
-            string realName = RemoveTitles(cleanedName);
-            return realName;
+            return cleanedName;
         }
 
         private string RemoveNonAlphabetic(string name)
@@ -89,179 +88,13 @@ namespace DatabaseSeeder
             string cleanedName = new string(name.Where(c => char.IsLetter(c) || char.IsWhiteSpace(c)).ToArray());
             return cleanedName;
         }
-
-        private string RemoveTitles(string name)
-        {
-            List<string> titles = new List<string>
-            {
-            "SE",
-            "SEI",
-            "SPsi",
-            "MM",
-            "SPt",
-            "MPd",
-            "Dr",
-            "Drs",
-            "Ir",
-            "SH",
-            "MH",
-            "MSi",
-            "MHum",
-            "MA",
-            "MSc",
-            "PhD",
-            "Prof",
-            "Prof Dr",
-            "Dr Hc",
-            "BSc",
-            "BA",
-            "BEng",
-            "MBA",
-            "LLB",
-            "LLM",
-            "MPhil",
-            "DPhil",
-            "EdD",
-            "DDS",
-            "DMD",
-            "DO",
-            "DVM",
-            "MD",
-            "MFA",
-            "JD",
-            "PsyD",
-            "ThD",
-            "DMin",
-            "BBA",
-            "AB",
-            "BS",
-            "BM",
-            "BFA",
-            "MLIS",
-            "MSW",
-            "MPH",
-            "MEd",
-            "MEng",
-            "MArch",
-            "MDes",
-            "MSN",
-            "DSc",
-            "DHEd",
-            "DMus",
-            "DPT",
-            "OTD",
-            "PharmD",
-            "RN",
-            "NP",
-            "CFA",
-            "CPA",
-            "Esq",
-            "PGDip",
-            "DipHE",
-            "CertHE",
-            "PGCE",
-            "BEd",
-            "MSt",
-            "MMus",
-            "MAEd",
-            "MChem",
-            "MBiol",
-            "MSocSci",
-            "BAA",
-            "BAppSc",
-            "MComp",
-            "MAcc",
-            "AMd",
-            "SAg",
-            "SPd",
-            "SE",
-            "SKom",
-            "SHum",
-            "SIKom",
-            "SPt",
-            "SFarm",
-            "SKed",
-            "SKes",
-            "SSi",
-            "SKH",
-            "ST",
-            "STP",
-            "SPsi",
-            "SPt",
-            "SSos",
-            "SH",
-            "SHut",
-            "SPi",
-            "SGz",
-            "SStat",
-            "STrT",
-            "STrKes",
-            "MAg",
-            "MPd",
-            "MSi",
-            "MKom",
-            "MHum",
-            "MIKom",
-            "MFarm",
-            "MKed",
-            "MKes",
-            "MSi",
-            "MKH",
-            "MT",
-            "MTP",
-            "MPsi",
-            "MSos",
-            "MH",
-            "MHut",
-            "MPi",
-            "MGz",
-            "MStat",
-            "MTrT",
-            "MTrKes",
-            "DS",
-            "DAg",
-            "DPd",
-            "DSi",
-            "DKom",
-            "DHum",
-            "DIKom",
-            "DFarm",
-            "DKed",
-            "DKes",
-            "DT",
-            "DTP",
-            "DPsi",
-            "DSos",
-            "DH",
-            "DHut",
-            "DPi",
-            "DGz",
-            "DStat",
-            "DTrT",
-            "DTrKes",
-            "MTi",
-            "Mak, msip",
-            "Mak, msi",
-            };
-
-            string cleanedName = name.ToLower();
-            foreach (string title in titles)
-            {
-                var aha = title.ToLower();
-                cleanedName = cleanedName.Replace(aha, "");
-            }
-
-            cleanedName = cleanedName.Trim();
-            return cleanedName;
-
-        }
-
         public string GenerateRandomCorruptName(string name)
         {
             string corruptName = RandomRemoveVocal(name);
             corruptName = RandomCase(corruptName);
             corruptName = RandomAlay(corruptName);
-            if(corruptName[corruptName.Length - 1] == '0'){
+            if (corruptName[corruptName.Length - 1] == '0')
+            {
                 corruptName = corruptName.Substring(0, corruptName.Length - 1) + 'o';
             }
             return corruptName;
@@ -357,21 +190,20 @@ namespace DatabaseSeeder
                                         .ToArray();
             return byteArray;
         }
-        
         public void SeedFakeData(string imageFolder)
         {
             connection.Open();
 
             byte[] key = new byte[16] {
-                0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,
-                0xab, 0xf7, 0x4e, 0x35, 0x0b, 0x34, 0x78, 0x55
-            };
+        0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,
+        0xab, 0xf7, 0x4e, 0x35, 0x0b, 0x34, 0x78, 0x55
+    };
 
             // Example IV (128-bit)
             byte[] iv = new byte[16] {
-                0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-                0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
-            };
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+    };
 
             CustomAes aes = new CustomAes(key, iv);
 
@@ -400,8 +232,6 @@ namespace DatabaseSeeder
                         NIKbyteArray[j] = padValue;
                     }
                     string NIK = BitConverter.ToString(aes.Encrypt(NIKbyteArray));
-                    // Console.WriteLine("Generated NIK: " + generatorNIK);
-                    // Console.WriteLine("Decrypted NIK: " + Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(NIK))).Substring(0, 16));
 
                     string realName = GenerateUniqueName(fake);
                     string nama = GenerateRandomCorruptName(realName);
@@ -413,11 +243,7 @@ namespace DatabaseSeeder
                     {
                         namaByteArray[j] = 0;
                     }
-
-                    //Console.WriteLine("Generated nama: " + nama);
                     nama = BitConverter.ToString(aes.Encrypt(namaByteArray));
-                    //string decryptedNama = Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(nama)));
-                    //Console.WriteLine("Decrypted nama: " + decryptedNama.TrimEnd('0'));
 
                     string tempat_lahir = fake.Address.City();
                     byte[] tempatLahirByteArray = new byte[64];
@@ -443,11 +269,7 @@ namespace DatabaseSeeder
                     {
                         tanggalLahirByteArray[j] = 0;
                     }
-                    //Console.WriteLine("Generated TanggalLahir: " + tanggalLahir);
                     tanggalLahir = BitConverter.ToString(aes.Encrypt(tanggalLahirByteArray));
-                    //string decryptedTanggalLahir = Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(tanggalLahir)));
-                    //Console.WriteLine("Decrypted Tanggal Lahir: " + decryptedTanggalLahir);
-
 
                     string jenis_kelamin = fake.PickRandom("Laki-Laki", "Perempuan");
                     string golongan_darah = fake.PickRandom("A", "B", "AB", "O");
@@ -457,13 +279,11 @@ namespace DatabaseSeeder
                     byte[] alamatBytes = Encoding.UTF8.GetBytes(alamat);
                     Array.Copy(alamatBytes, alamatByteArray, Math.Min(alamatBytes.Length, alamatByteArray.Length));
 
-                    for (int j = alamatBytes.Length; j < alamatByteArray.Length; j++){
+                    for (int j = alamatBytes.Length; j < alamatByteArray.Length; j++)
+                    {
                         alamatByteArray[j] = 0;
                     }
-                    //Console.WriteLine("Generated alamat: " + alamat);
                     alamat = BitConverter.ToString(aes.Encrypt(alamatByteArray));
-                    //string decryptedAlamat = Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(alamat)));
-                    //Console.WriteLine("Decrypted alamat: " + decryptedAlamat.TrimEnd('0'));
 
                     string agama = fake.PickRandom("Islam", "Kristen", "Katolik", "Hindu", "Buddha");
                     string status_perkawinan = fake.PickRandom("Belum Menikah", "Menikah", "Cerai");
@@ -473,10 +293,10 @@ namespace DatabaseSeeder
                     byte[] pekerjaanBytes = Encoding.UTF8.GetBytes(pekerjaan);
                     Array.Copy(pekerjaanBytes, pekerjaanByteArray, Math.Min(pekerjaanBytes.Length, pekerjaanByteArray.Length));
 
-                    for (int j = pekerjaanBytes.Length; j < pekerjaanByteArray.Length; j++){
+                    for (int j = pekerjaanBytes.Length; j < pekerjaanByteArray.Length; j++)
+                    {
                         pekerjaanByteArray[j] = 0;
                     }
-                    //Console.WriteLine("Pekerjaan: " + pekerjaan);
                     pekerjaan = BitConverter.ToString(aes.Encrypt(pekerjaanByteArray));
 
                     string kewarganegaraan = fake.PickRandom("WNI", "WNA");
@@ -488,13 +308,11 @@ namespace DatabaseSeeder
                     byte[] realNameBytes = Encoding.UTF8.GetBytes(realName);
                     Array.Copy(realNameBytes, realNameByteArray, Math.Min(realNameBytes.Length, realNameByteArray.Length));
 
-                    for(int k = realNameBytes.Length; k < realNameByteArray.Length; k++){
+                    for (int k = realNameBytes.Length; k < realNameByteArray.Length; k++)
+                    {
                         realNameByteArray[k] = 0;
                     }
-                    //Console.WriteLine("Generated real name: " + realName);
                     realName = BitConverter.ToString(aes.Encrypt(realNameByteArray));
-                    //string decryptedRealName = Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(realName)));
-                    //Console.WriteLine("Decrypted Real Name: " + decryptedRealName.TrimEnd('0'));
 
                     int remainingRecords = imageFiles.Length - i;
                     int rand = fake.Random.Number(1, 5);
@@ -507,7 +325,8 @@ namespace DatabaseSeeder
                         byte[] pathBytes = Encoding.UTF8.GetBytes(path);
                         Array.Copy(pathBytes, pathByteArray, Math.Min(pathBytes.Length, pathByteArray.Length));
 
-                        for(int k = pathBytes.Length; k < pathByteArray.Length; k++){
+                        for (int k = pathBytes.Length; k < pathByteArray.Length; k++)
+                        {
                             pathByteArray[k] = 0;
                         }
                         path = BitConverter.ToString(aes.Encrypt(pathByteArray));
@@ -519,14 +338,12 @@ namespace DatabaseSeeder
                             byte[] berkasCitraByteArray = new byte[2304];
                             byte[] berkasCitraBytes = Encoding.UTF8.GetBytes(berkas_citra);
                             Array.Copy(berkasCitraBytes, berkasCitraByteArray, Math.Min(berkasCitraBytes.Length, berkasCitraByteArray.Length));
-                            
-                            for(int k = berkasCitraBytes.Length; k < berkasCitraByteArray.Length; k++){
+
+                            for (int k = berkasCitraBytes.Length; k < berkasCitraByteArray.Length; k++)
+                            {
                                 berkasCitraByteArray[k] = 0;
                             }
-                            //Console.WriteLine("Generated berkas: " + berkas_citra);
                             berkas_citra = BitConverter.ToString(aes.Encrypt(berkasCitraByteArray));
-                            //string decryptedBerkas = Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(berkas_citra)));
-                            //Console.WriteLine("Decrypted berkas: " + decryptedBerkas.TrimEnd('0'));
 
                             var sidikJariData = (berkas_citra, realName, path);
                             sidikJariRecords.Add(sidikJariData);
@@ -534,90 +351,67 @@ namespace DatabaseSeeder
                         }
                         else
                         {
-                            Console.WriteLine($"Duplicate path detected: {path}");
+                            Console.WriteLine("Duplicate path found, skipping record." + path);
                         }
+                    }
+
+                    // Reduce batch size
+                    if (biodataRecords.Count >= 100)
+                    {
+                        InsertBiodataRecords(command, biodataRecords);
+                        InsertSidikJariRecords(command, sidikJariRecords);
+                        biodataRecords.Clear();
+                        sidikJariRecords.Clear();
                     }
 
                     i += randomCount;
-                    Console.WriteLine($"Generated {i}/{imageFiles.Length} records");
+                    Console.WriteLine($"Generated {i}/{imageFiles.Length} records.");
                 }
 
-                // Now insert the generated data into the database
-                using (var transaction = connection.BeginTransaction())
+                // Insert any remaining records
+                if (biodataRecords.Count > 0)
                 {
-                    try
-                    {
-                        var insertBiodata = @"
-                            INSERT INTO biodata (
-                                NIK, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah,
-                                alamat, agama, status_perkawinan, pekerjaan, kewarganegaraan
-                            ) VALUES (@NIK, @nama, @tempat_lahir, @tanggalLahir, @jenis_kelamin, @golongan_darah,
-                                @alamat, @agama, @status_perkawinan, @pekerjaan, @kewarganegaraan)
-                        ";
-
-                        var insertSidikJari = @"
-                            INSERT INTO sidik_jari (berkas_citra, realName, path) VALUES (@berkas_citra, @realName, @path)
-                        ";
-
-                        command.CommandText = insertBiodata;
-                        command.Parameters.Add("@NIK", MySqlDbType.Text);
-                        command.Parameters.Add("@nama", MySqlDbType.Text);
-                        command.Parameters.Add("@tempat_lahir", MySqlDbType.Text);
-                        command.Parameters.Add("@tanggalLahir", MySqlDbType.Text);
-                        command.Parameters.Add("@jenis_kelamin", MySqlDbType.Enum);
-                        command.Parameters.Add("@golongan_darah", MySqlDbType.Enum);
-                        command.Parameters.Add("@alamat", MySqlDbType.Text);
-                        command.Parameters.Add("@agama", MySqlDbType.Enum);
-                        command.Parameters.Add("@status_perkawinan", MySqlDbType.Enum);
-                        command.Parameters.Add("@pekerjaan", MySqlDbType.Text);
-                        command.Parameters.Add("@kewarganegaraan", MySqlDbType.Enum);
-
-                        foreach (var biodata in biodataRecords)
-                        {
-                            command.Parameters["@NIK"].Value = biodata.Item1;
-                            command.Parameters["@nama"].Value = biodata.Item2;
-                            command.Parameters["@tempat_lahir"].Value = biodata.Item3;
-                            command.Parameters["@tanggalLahir"].Value = biodata.Item4;
-                            command.Parameters["@jenis_kelamin"].Value = biodata.Item5;
-                            command.Parameters["@golongan_darah"].Value = biodata.Item6;
-                            command.Parameters["@alamat"].Value = biodata.Item7;
-                            command.Parameters["@agama"].Value = biodata.Item8;
-                            command.Parameters["@status_perkawinan"].Value = biodata.Item9;
-                            command.Parameters["@pekerjaan"].Value = biodata.Item10;
-                            command.Parameters["@kewarganegaraan"].Value = biodata.Item11;
-
-                            command.ExecuteNonQuery();
-                        }
-
-                        command.CommandText = insertSidikJari;
-                        command.Parameters.Clear();
-                        command.Parameters.Add("@berkas_citra", MySqlDbType.LongText);
-                        command.Parameters.Add("@realName", MySqlDbType.VarChar);
-                        command.Parameters.Add("@path", MySqlDbType.VarChar);
-
-                        foreach (var sidikJari in sidikJariRecords)
-                        {
-                            command.Parameters["@berkas_citra"].Value = sidikJari.Item1;
-                            command.Parameters["@realName"].Value = sidikJari.Item2;
-                            command.Parameters["@path"].Value = sidikJari.Item3;
-
-                            command.ExecuteNonQuery();
-                        }
-
-                        transaction.Commit();
-                        Console.WriteLine("Inserted records into biodata and sidik_jari tables.");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        Console.WriteLine($"Error inserting records: {ex.Message}");
-                    }
+                    InsertBiodataRecords(command, biodataRecords);
+                    InsertSidikJariRecords(command, sidikJariRecords);
                 }
 
+                connection.Close();
             }
+        }
 
-            connection.Close();
+        private void InsertBiodataRecords(MySqlCommand command, List<(string, string, string, string, string, string, string, string, string, string, string)> records)
+        {
+            foreach (var record in records)
+            {
+                command.CommandText = "INSERT INTO biodata (NIK, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah, alamat, agama, status_perkawinan, pekerjaan, kewarganegaraan) " +
+                                      "VALUES (@NIK, @nama, @tempat_lahir, @tanggal_lahir, @jenis_kelamin, @golongan_darah, @alamat, @agama, @status_perkawinan, @pekerjaan, @kewarganegaraan)";
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@NIK", record.Item1);
+                command.Parameters.AddWithValue("@nama", record.Item2);
+                command.Parameters.AddWithValue("@tempat_lahir", record.Item3);
+                command.Parameters.AddWithValue("@tanggal_lahir", record.Item4);
+                command.Parameters.AddWithValue("@jenis_kelamin", record.Item5);
+                command.Parameters.AddWithValue("@golongan_darah", record.Item6);
+                command.Parameters.AddWithValue("@alamat", record.Item7);
+                command.Parameters.AddWithValue("@agama", record.Item8);
+                command.Parameters.AddWithValue("@status_perkawinan", record.Item9);
+                command.Parameters.AddWithValue("@pekerjaan", record.Item10);
+                command.Parameters.AddWithValue("@kewarganegaraan", record.Item11);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private void InsertSidikJariRecords(MySqlCommand command, List<(string, string, string)> records)
+        {
+            foreach (var record in records)
+            {
+                command.CommandText = "INSERT INTO sidik_jari (berkas_citra, nama, path) VALUES (@berkas_citra, @nama, @path)";
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@berkas_citra", record.Item1);
+                command.Parameters.AddWithValue("@nama", record.Item2);
+                command.Parameters.AddWithValue("@path", record.Item3);
+                command.ExecuteNonQuery();
+            }
         }
 
     }

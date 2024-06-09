@@ -1,6 +1,6 @@
 using System;
 
-namespace AESExample
+namespace Tubes3_PuntangPanting
 {
     public class CustomAes
     {
