@@ -35,7 +35,6 @@ namespace Tubes3_PuntangPanting
 
             InitializeDatabaseConnection();
             LoadDataFromDatabase();
-            DisplayDataStatus();
         }
 
         private void InitializeDatabaseConnection()
@@ -89,12 +88,6 @@ namespace Tubes3_PuntangPanting
                 biodataTable = db.ReadBiodata();
                 sidikJariTable = db.ReadSidikJari();
             }
-        }
-
-        private void DisplayDataStatus()
-        {
-            MessageBox.Show($"There are {biodataTable.Rows.Count} rows of data in the biodata table.");
-            MessageBox.Show($"There are {sidikJariTable.Rows.Count} rows of data in the sidik jari table.");
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -152,7 +145,12 @@ namespace Tubes3_PuntangPanting
             if (text == null || path == null)
                 return;
 
+            // TODO: Trim end 0 harusnya disini 
             string? decryptedText = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(text)))) : text;
+            if (isEncrypt)
+            {
+                decryptedText = decryptedText.TrimEnd('0');
+            }
             const double minPercentage = 50.0;
 
             if (decryptedText != null)
@@ -245,8 +243,13 @@ namespace Tubes3_PuntangPanting
                 return;
             }
 
-            string? sameName = matchedData["nama"].ToString();
+            string? sameName = matchedData["realName"].ToString();
+            // TODO: Trim end 0 harusnya disini 
             string? decryptedSameName = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(sameName)))) : sameName;
+            if (isEncrypt)
+            {
+                decryptedSameName = decryptedSameName?.TrimEnd('0');
+            }
 
             if (decryptedSameName == null || db == null)
                 return;
@@ -256,7 +259,12 @@ namespace Tubes3_PuntangPanting
 
             foreach (var name in arrName)
             {
+                // TODO: Trim end 0 harusnya disini 
                 var decryptedName = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(name)))) : name;
+                if (isEncrypt)
+                {
+                    decryptedName = decryptedName.TrimEnd('0');
+                }
                 if (TextProcessing.CompareWord(decryptedSameName, decryptedName))
                 {
                     foundName = name;
@@ -273,7 +281,13 @@ namespace Tubes3_PuntangPanting
             DataTable resData = db.ReadBiodataByName(foundName, biodataTable);
             PercentageLabel.Text = $"{maxSimilarity}%";
 
+            // TODO: Trim end 0 harusnya disini 
             string? decryptImgPath = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(imagePath)))) : imagePath;
+            if (isEncrypt)
+            {
+                decryptImgPath = decryptImgPath.TrimEnd('0');
+            }
+
             if (decryptImgPath != null)
             {
                 DisplayMatchedFingerprint(decryptImgPath);
@@ -285,6 +299,7 @@ namespace Tubes3_PuntangPanting
         {
             try
             {
+                // Todo: Harusnya remove non valid gak dipake
                 string fullPath = Path.Combine(Environment.CurrentDirectory, TextProcessing.RemoveNonValidPath(imagePath));
 
                 if (!File.Exists(fullPath))

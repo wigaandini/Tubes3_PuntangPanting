@@ -41,11 +41,13 @@ namespace Tubes3_PuntangPanting
             return Regex.Replace(teks, "[aiueo]", "");
         }
 
+        // Todo: Harusnya ga dipake
         public static string RemoveNonAlphabeticAndNumber(string text)
         {
             return Regex.Replace(text, @"[^a-zA-Z0-9]", "");
         }
 
+        // Todo: Harusnya ga dipake
         public static string RemoveNonValidPath(string text)
         {
             return Regex.Replace(text, @"[^\w\-\/\\.\\]", "");
@@ -75,7 +77,6 @@ namespace Tubes3_PuntangPanting
                 }
                 return true;
             }
-
             sentence = RemoveNonAlphabeticAndNumber(sentence.ToLower());
             sourceSentence = RemoveNonAlphabeticAndNumber(sourceSentence.ToLower());
             sentence = AlayNormalization(sentence);
