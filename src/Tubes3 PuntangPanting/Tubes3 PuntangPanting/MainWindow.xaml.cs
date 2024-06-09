@@ -9,15 +9,27 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Media;
 using System.Collections.Concurrent;
+using AESExample;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Tubes3_PuntangPanting
 {
-
-    /// Interaction logic for MainWindow.xaml
-
     public partial class MainWindow : Window
     {
         private Bitmap? imgUpload;
+        private byte[] key = new byte[16] {
+            0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,
+            0xab, 0xf7, 0x4e, 0x35, 0x0b, 0x34, 0x78, 0x55
+        };
+
+        private byte[] iv = new byte[16] {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+            0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+        };
+
+        private CustomAes aes;
         private Database? db;
         private DataTable biodataTable;
         private DataTable sidikJariTable;
@@ -25,8 +37,9 @@ namespace Tubes3_PuntangPanting
         public MainWindow()
         {
             InitializeComponent();
-            imgUpload = null; // Initialize imgUpload to null
+            imgUpload = null;
             db = null;
+            aes = new CustomAes(key, iv);
 
             bool customizeDatabase = AskForCustomization();
             string customServer, customUser, customDatabase, customPassword;
@@ -36,17 +49,14 @@ namespace Tubes3_PuntangPanting
 
             if (customizeDatabase)
             {
-                // Ask the user for database connection details
                 string input = Microsoft.VisualBasic.Interaction.InputBox("Enter database connection details separated by commas (Server, Username, Database, Password):", "Enter Connection Details", "");
-
-                // Split the input into individual parameters
                 string[] inputParams = input.Split(',');
 
                 if (inputParams.Length != 4)
                 {
                     MessageBox.Show("Please enter all four parameters separated by commas.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close(); // Close the application if input is invalid
-                    return; // Return to prevent further execution
+                    Close();
+                    return;
                 }
 
                 customServer = inputParams[0].Trim();
@@ -58,29 +68,33 @@ namespace Tubes3_PuntangPanting
             {
                 customServer = "Fairuz";
                 customUser = "root";
-                customDatabase = "stima";
+                customDatabase = "freeencrypteddb";
                 customPassword = "bismillah.33";
             }
 
-            // Initialize database and create necessary tables
             db = new Database(customServer, customUser, customDatabase, customPassword);
             db.CreateBiodataTable();
             db.CreateSidikJariTable();
 
-
-            // Read data from database
             biodataTable = db.ReadBiodata();
             sidikJariTable = db.ReadSidikJari();
 
-            // Display biodata table content
-            if (biodataTable.Rows.Count > 0) // Use Rows.Count to get the row count
+            DisplayDataStatus();
+        }
+
+        private bool AskForCustomization()
+        {
+            return MessageBox.Show("Do you want to customize the database connection details?", "Customize Database", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        }
+
+        private void DisplayDataStatus()
+        {
+            if (biodataTable.Rows.Count > 0)
             {
-                // Show a message indicating the number of rows and that data is present in the biodata table
                 MessageBox.Show($"There are {biodataTable.Rows.Count} rows of data in the biodata table.");
             }
             else
             {
-                // Show a message indicating that there is no data in the biodata table
                 MessageBox.Show("No data is present in the biodata table.");
             }
 
@@ -92,35 +106,23 @@ namespace Tubes3_PuntangPanting
             {
                 MessageBox.Show("No data is present in the sidik jari table.");
             }
-
-        }
-        private bool AskForCustomization()
-        {
-            return MessageBox.Show("Do you want to customize the database connection details?", "Customize Database", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         }
 
-
-        /// Handles mouse down event on the grid for window drag.
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DragMove(); // Enable window drag
+                DragMove();
             }
         }
 
-
-        /// Handles the close button click event.
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close(); // Close the application
+            this.Close();
         }
 
-
-        /// Handles the fullscreen button click event.
         private void FullscreenButton_Click(object sender, RoutedEventArgs e)
         {
-            // Toggle between normal and maximized window states
             if (this.WindowState == WindowState.Normal)
             {
                 this.WindowState = WindowState.Maximized;
@@ -130,8 +132,6 @@ namespace Tubes3_PuntangPanting
                 this.WindowState = WindowState.Normal;
             }
         }
-
-        /// Handles the upload image button click event.
 
         private void UploadImage1_Click(object sender, RoutedEventArgs e)
         {
@@ -143,24 +143,39 @@ namespace Tubes3_PuntangPanting
                 Bitmap bp = new Bitmap(filePath);
 
                 image1.Source = bitmap;
-
-                // Store the converted image for later processing
                 imgUpload = bp;
                 buttonUpload.Visibility = Visibility.Hidden;
-
             }
+        }
+
+        public byte[] ConvertHexStringToByteArray(string? hexString)
+        {
+            if (hexString == null)
+            {
+                return new byte[0];
+            }
+
+            string cleanHexString = hexString.Replace("-", "");
+            byte[] byteArray = Enumerable.Range(0, cleanHexString.Length)
+                .Where(x => x % 2 == 0)
+                .Select(x => Convert.ToByte(cleanHexString.Substring(x, 2), 16))
+                .ToArray();
+            return byteArray;
         }
 
         async Task ProcessDataRow(DataRow datarow, ConcurrentDictionary<string, double> similarities, string pattern, string method)
         {
             string? text = datarow["berkas_citra"].ToString();
             string? path = datarow["path"].ToString();
+            string? decryptedText = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(text))));
             double minPercentage = 70.0;
-            if (text == null || path == null)
+
+            if (decryptedText == null || path == null)
             {
                 return;
             }
-            var result = await Task.Run(() => Levenshtein.MatchWithLevenshtein(pattern, text, minPercentage, method == "kmp" ? 2 : 1));
+
+            var result = await Task.Run(() => Levenshtein.MatchWithLevenshtein(pattern, decryptedText, minPercentage, method == "kmp" ? 2 : 1));
             similarities.TryAdd(path, result.similarity);
         }
 
@@ -171,30 +186,29 @@ namespace Tubes3_PuntangPanting
                 LoadingProgressBar.Visibility = Visibility.Visible;
                 bool isKMPSelected = tbRight.IsChecked ?? false;
                 bool isThread = tbRight2.IsChecked ?? false;
+
                 if (imgUpload == null)
                 {
                     return;
                 }
 
                 string pattern = AsciiConverter.MidOneBitmap(imgUpload);
-
                 string method = isKMPSelected ? "kmp" : "bm";
 
                 Stopwatch stopwatch = new Stopwatch();
                 ConcurrentDictionary<string, double> similarities = new ConcurrentDictionary<string, double>();
-                if (sidikJariTable.Rows.Count == 0 || sidikJariTable == null || DataTable.Equals(sidikJariTable, null) || DataTable.Equals(sidikJariTable, new DataTable()))
+
+                if (sidikJariTable.Rows.Count == 0)
                 {
                     MessageBox.Show("No data in sidik jari table.");
                     return;
                 }
+
                 stopwatch.Start();
+
                 if (isThread)
                 {
-                    var tasks = sidikJariTable.AsEnumerable().Select(async datarow =>
-                    {
-                        await ProcessDataRow(datarow, similarities, pattern, method);
-                    });
-
+                    var tasks = sidikJariTable.AsEnumerable().Select(datarow => ProcessDataRow(datarow, similarities, pattern, method));
                     await Task.WhenAll(tasks);
                 }
                 else
@@ -208,7 +222,6 @@ namespace Tubes3_PuntangPanting
                 stopwatch.Stop();
                 var maxSimilarity = similarities.Values.Max();
                 var imagePath = similarities.FirstOrDefault(kv => kv.Value == maxSimilarity).Key;
-
                 durationLabel.Text = $"{stopwatch.ElapsedMilliseconds} ms";
 
                 if (db == null)
@@ -225,24 +238,39 @@ namespace Tubes3_PuntangPanting
                     return;
                 }
 
-                string? sameName = matchedData["nama"].ToString();
+                string? sameName = matchedData["realName"].ToString();
+                string? decryptedSameName = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(sameName))));
+
                 string foundName = "";
-                List<string> arrName = db.ReadNameLeft();
-
-                // Compare names to find a match
-                if (sameName != null && arrName != null && arrName.Count > 0)
+                try
                 {
-
-                    foreach (string name in arrName)
+                    List<string> arrName = db.ReadNameLeft();
+                    if (decryptedSameName != null && arrName != null && arrName.Count > 0)
                     {
-                        bool isSame = TextProcessing.CompareWord(sameName, name);
-                        if (isSame)
+                        foreach (string name in arrName)
                         {
-                            foundName = name;
-                            break;
+                            string nameDecrypt = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(name))));
+                            if (TextProcessing.CompareWord(decryptedSameName, nameDecrypt))
+                            {
+                                foundName = name;
+                                break;
+                            }
+                        }
+                        if (string.IsNullOrEmpty(foundName))
+                        {
+                            MessageBox.Show("No matching name found.");
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("No names found in database.");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred 2: {ex.Message}");
+                }
+
 
                 DataTable resData = new DataTable();
                 if (!string.IsNullOrEmpty(foundName))
@@ -250,23 +278,22 @@ namespace Tubes3_PuntangPanting
                     resData = db.ReadBiodataByName(foundName, biodataTable);
                 }
 
-                PercentageLabel.Text = $"{maxSimilarity}%";
 
-                string? imgPath = matchedData["path"].ToString();
-                if (imgPath == null)
+                PercentageLabel.Text = $"{maxSimilarity}%";
+                string decryptImgPath = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(imagePath))));
+                if (decryptImgPath == null)
                 {
                     MessageBox.Show("Image path not found.");
                     return;
                 }
-                DisplayMatchedFingerprint(imgPath);
 
-                if (resData.Rows.Count > 0 && (sameName != null))
+                DisplayMatchedFingerprint(decryptImgPath);
+
+                if (resData.Rows.Count > 0 && decryptedSameName != null)
                 {
-                    string? path = matchedData["path"].ToString();
-                    if (path != null)
+                    if (decryptImgPath != null)
                     {
-
-                        DisplayBiodata(resData, sameName, path);
+                        await DisplayBiodata(resData, decryptedSameName, decryptImgPath);
                     }
                 }
             }
@@ -276,28 +303,46 @@ namespace Tubes3_PuntangPanting
             }
             finally
             {
-                LoadingProgressBar.Visibility = Visibility.Hidden; // Hide loading indicator
+                LoadingProgressBar.Visibility = Visibility.Hidden;
             }
         }
 
-        /// Displays the matched fingerprint image.
         private void DisplayMatchedFingerprint(string imagePath)
         {
-            var path = Path.Combine(Environment.CurrentDirectory, imagePath);
-            var uri = new Uri(path);
-            if (uri != null)
+            try
             {
-                BitmapImage bitmap = new BitmapImage(uri);
+                imagePath = TextProcessing.RemoveNonValidPath(imagePath);
+                if (string.IsNullOrEmpty(imagePath))
+                {
+                    MessageBox.Show("Image path is empty or null.");
+                    return;
+                }
+
+                string fullPath = Path.Combine(Environment.CurrentDirectory, imagePath);
+
+                if (!File.Exists(fullPath))
+                {
+                    MessageBox.Show($"File not found: {fullPath}");
+                    return;
+                }
+
+                var uri = new Uri(fullPath);
+
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = uri;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
                 imgMatchedFingerprint.Source = bitmap;
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Image not found");
+                MessageBox.Show($"An error occurred while displaying the fingerprint image: {ex.Message}");
             }
         }
 
-        /// Displays the biodata in a TextBlock control.
-        private void DisplayBiodata(DataTable biodataTable, string realName, string imagePath)
+        private async Task DisplayBiodata(DataTable biodataTable, string realName, string imagePath)
         {
             if (biodataTable.Rows.Count == 0)
             {
@@ -309,18 +354,25 @@ namespace Tubes3_PuntangPanting
                 StringBuilder biodataText = new StringBuilder();
                 foreach (DataRow row in biodataTable.Rows)
                 {
+                    string decryptedNIK = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["NIK"].ToString()))).Substring(0, 16));
+                    string decryptedNama = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["nama"].ToString()))));
+                    string decryptedTempatLahir = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["tempat_lahir"].ToString()))));
+                    string decryptedTanggalLahir = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["tanggal_lahir"].ToString()))));
+                    string decryptedAlamat = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["alamat"].ToString()))));
+                    string decryptedPekerjaan = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["pekerjaan"].ToString()))));
+
                     biodataText.AppendLine($"Image Path: {imagePath}");
-                    biodataText.AppendLine($"NIK: {row["NIK"]}");
-                    biodataText.AppendLine($"Nama: {row["nama"]}");
+                    biodataText.AppendLine($"NIK: {decryptedNIK}");
+                    biodataText.AppendLine($"Nama: {decryptedNama}");
                     biodataText.AppendLine($"Real Name: {realName}");
-                    biodataText.AppendLine($"Tempat Lahir: {row["tempat_lahir"]}");
-                    biodataText.AppendLine($"Tanggal Lahir: {row["tanggal_lahir"]}");
+                    biodataText.AppendLine($"Tempat Lahir: {decryptedTempatLahir}");
+                    biodataText.AppendLine($"Tanggal Lahir: {decryptedTanggalLahir}");
                     biodataText.AppendLine($"Jenis Kelamin: {row["jenis_kelamin"]}");
                     biodataText.AppendLine($"Golongan Darah: {row["golongan_darah"]}");
-                    biodataText.AppendLine($"Alamat: {row["alamat"]}");
+                    biodataText.AppendLine($"Alamat: {decryptedAlamat}");
                     biodataText.AppendLine($"Agama: {row["agama"]}");
                     biodataText.AppendLine($"Status Perkawinan: {row["status_perkawinan"]}");
-                    biodataText.AppendLine($"Pekerjaan: {row["pekerjaan"]}");
+                    biodataText.AppendLine($"Pekerjaan: {decryptedPekerjaan}");
                     biodataText.AppendLine($"Kewarganegaraan: {row["kewarganegaraan"]}");
                     biodataText.AppendLine();
                 }
@@ -330,7 +382,5 @@ namespace Tubes3_PuntangPanting
                 biodataLabel.HorizontalAlignment = HorizontalAlignment.Center;
             }
         }
-
-
     }
 }

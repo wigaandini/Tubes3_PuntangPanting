@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace Tubes3_PuntangPanting
 {
@@ -40,11 +41,21 @@ namespace Tubes3_PuntangPanting
             return Regex.Replace(teks, "[aiueo]", "");
         }
 
+        public static string RemoveNonAlphabeticAndNumber(string text)
+        {
+            return Regex.Replace(text, @"[^a-zA-Z0-9]", "");
+        }
+
+        public static string RemoveNonValidPath(string text)
+        {
+            return Regex.Replace(text, @"[^\w\-\/\\.\\]", "");
+
+        }
+
         public static bool CompareWord(string sentence, string sourceSentence)
         {
             bool RegexExtractVokalAndCompare(string word, string source)
             {
-
                 var vokalWord = Regex.Matches(word, "[aiueo]");
                 var vokalSource = Regex.Matches(source, "[aiueo]");
                 string noVokalWord = RemoveVokal(word);
@@ -65,6 +76,8 @@ namespace Tubes3_PuntangPanting
                 return true;
             }
 
+            sentence = RemoveNonAlphabeticAndNumber(sentence.ToLower());
+            sourceSentence = RemoveNonAlphabeticAndNumber(sourceSentence.ToLower());
             sentence = AlayNormalization(sentence);
             sourceSentence = AlayNormalization(sourceSentence);
             string[] arrayWord = sentence.Split(' ');

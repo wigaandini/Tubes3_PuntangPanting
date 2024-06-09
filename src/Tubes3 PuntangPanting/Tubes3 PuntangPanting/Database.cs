@@ -78,7 +78,6 @@ namespace Tubes3_PuntangPanting
 
             ExecuteNonQuery(query);
         }
-
         private void ExecuteNonQuery(string query)
         {
             MySqlCommand cmd = new MySqlCommand(query, connection);

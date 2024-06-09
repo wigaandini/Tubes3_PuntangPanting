@@ -109,3 +109,40 @@ C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 
 C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 P.26E31351.Up2Date
 C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.genruntimeconfig.cache
 C:\Users\edarr\Downloads\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\ref\Tubes3 PuntangPanting.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.exe
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.deps.json
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.runtimeconfig.json
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Tubes3 PuntangPanting.pdb
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\Google.Protobuf.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\K4os.Compression.LZ4.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\K4os.Compression.LZ4.Streams.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\K4os.Hash.xxHash.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\MySql.Data.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\System.Drawing.Common.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\ZstdSharp.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\comerr64.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\gssapi64.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\k5sprt64.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\krb5_64.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\bin\Debug\net8.0-windows\runtimes\win-x64\native\krbcc64.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.csproj.AssemblyReference.cache
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\MainWindow.g.cs
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\App.g.cs
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.cache
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting_MarkupCompile.lref
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\MainWindow.baml
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.g.resources
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.GeneratedMSBuildEditorConfig.editorconfig
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.AssemblyInfoInputs.cache
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.AssemblyInfo.cs
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.csproj.CoreCompileInputs.cache
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.sourcelink.json
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 P.26E31351.Up2Date
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\refint\Tubes3 PuntangPanting.dll
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.pdb
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\Tubes3 PuntangPanting.genruntimeconfig.cache
+D:\Kuliah\stima\Tubes3_PuntangPanting\src\Tubes3 PuntangPanting\Tubes3 PuntangPanting\obj\Debug\net8.0-windows\ref\Tubes3 PuntangPanting.dll
