@@ -1,14 +1,13 @@
-<p align="center">
-    <h3 align="center">"Pattern Matching in Biometric Fingerprint Detection System"</h3>
-</p>
+<h1 align="center"> Tugas Besar 3 IF2211 Strategi Algoritma </h1>
+<h1 align="center">  Pattern Matching in Biometric Fingerprint Detection System using WPF C# and MySQL </h1>
 
-<p align="center">using WPF C# and MySQL</p>
+![foto](img/foto.jpg)
 
 <br/>
 
 ## Introduction
 
-The Pattern Matching in Biometric Fingerprint Detection System is a sophisticated application designed to provide efficient biometric authentication using fingerprint images. Developed using WPF C# and MySQL, this system leverages advanced pattern matching algorithms to accurately identify individuals based on their unique fingerprint patterns.
+The Pattern Matching in Biometric Fingerprint Detection System is a sophisticated application designed to provide efficient biometric authentication using fingerprint images. Developed using WPF C# and MySQL, this system leverages advanced pattern matching algorithms to accurately identify individuals based on their unique fingerprint patterns. The pattern matching algorithm is using Boyer Moore and Knuth Morris Pratt for searching the exactly match 100% fingerprint. If there is no fingerprint that exactly match, the percentage is counted using Levensthein algorithm.
 
 ## Table of Contents
 
