@@ -124,3 +124,20 @@ _TeamCity*
 _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_    
+
+# Build files
+bin/
+obj/
+
+# User-specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+*.nuget.props
+*.nuget.targets
+packages/
+*.lock.json
