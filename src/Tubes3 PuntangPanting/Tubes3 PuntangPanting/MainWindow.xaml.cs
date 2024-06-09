@@ -33,6 +33,7 @@ namespace Tubes3_PuntangPanting
         private Database? db;
         private DataTable biodataTable;
         private DataTable sidikJariTable;
+        private bool isEncrypt = false;
 
         public MainWindow()
         {
@@ -68,9 +69,10 @@ namespace Tubes3_PuntangPanting
             {
                 customServer = "Fairuz";
                 customUser = "root";
-                customDatabase = "freeencrypteddb";
+                customDatabase = "stima";
                 customPassword = "bismillah.33";
             }
+            isEncrypt = AskForEncryption();
 
             db = new Database(customServer, customUser, customDatabase, customPassword);
             db.CreateBiodataTable();
@@ -85,6 +87,11 @@ namespace Tubes3_PuntangPanting
         private bool AskForCustomization()
         {
             return MessageBox.Show("Do you want to customize the database connection details?", "Customize Database", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        }
+
+        private bool AskForEncryption()
+        {
+            return MessageBox.Show("Is the data encrypted?", "Encryption", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         }
 
         private void DisplayDataStatus()
@@ -167,7 +174,7 @@ namespace Tubes3_PuntangPanting
         {
             string? text = datarow["berkas_citra"].ToString();
             string? path = datarow["path"].ToString();
-            string? decryptedText = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(text))));
+            string? decryptedText = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(text)))) : text;
             double minPercentage = 70.0;
 
             if (decryptedText == null || path == null)
@@ -221,6 +228,15 @@ namespace Tubes3_PuntangPanting
 
                 stopwatch.Stop();
                 var maxSimilarity = similarities.Values.Max();
+                if (maxSimilarity < 50)
+                {
+                    PercentageLabel.Text = "0%";
+
+                    imgMatchedFingerprint.Source = null;
+
+                    biodataLabel.Text = "No Data Found";
+                    return;
+                }
                 var imagePath = similarities.FirstOrDefault(kv => kv.Value == maxSimilarity).Key;
                 durationLabel.Text = $"{stopwatch.ElapsedMilliseconds} ms";
 
@@ -238,8 +254,8 @@ namespace Tubes3_PuntangPanting
                     return;
                 }
 
-                string? sameName = matchedData["realName"].ToString();
-                string? decryptedSameName = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(sameName))));
+                string? sameName = matchedData["nama"].ToString();
+                string? decryptedSameName = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(sameName)))) : sameName;
 
                 string foundName = "";
                 try
@@ -249,7 +265,7 @@ namespace Tubes3_PuntangPanting
                     {
                         foreach (string name in arrName)
                         {
-                            string nameDecrypt = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(name))));
+                            string nameDecrypt = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(name)))) : name;
                             if (TextProcessing.CompareWord(decryptedSameName, nameDecrypt))
                             {
                                 foundName = name;
@@ -280,7 +296,7 @@ namespace Tubes3_PuntangPanting
 
 
                 PercentageLabel.Text = $"{maxSimilarity}%";
-                string decryptImgPath = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(imagePath))));
+                string decryptImgPath = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(imagePath)))) : imagePath;
                 if (decryptImgPath == null)
                 {
                     MessageBox.Show("Image path not found.");
@@ -354,12 +370,12 @@ namespace Tubes3_PuntangPanting
                 StringBuilder biodataText = new StringBuilder();
                 foreach (DataRow row in biodataTable.Rows)
                 {
-                    string decryptedNIK = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["NIK"].ToString()))).Substring(0, 16));
-                    string decryptedNama = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["nama"].ToString()))));
-                    string decryptedTempatLahir = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["tempat_lahir"].ToString()))));
-                    string decryptedTanggalLahir = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["tanggal_lahir"].ToString()))));
-                    string decryptedAlamat = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["alamat"].ToString()))));
-                    string decryptedPekerjaan = await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["pekerjaan"].ToString()))));
+                    string decryptedNIK = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["NIK"].ToString()))).Substring(0, 16)) : row["NIK"].ToString();
+                    string decryptedNama = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["nama"].ToString())))) : row["nama"].ToString();
+                    string decryptedTempatLahir = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["tempat_lahir"].ToString())))) : row["tempat_lahir"].ToString();
+                    string decryptedTanggalLahir = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["tanggal_lahir"].ToString())))) : row["tanggal_lahir"].ToString();
+                    string decryptedAlamat = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["alamat"].ToString())))) : row["alamat"].ToString();
+                    string decryptedPekerjaan = isEncrypt ? await Task.Run(() => Encoding.UTF8.GetString(aes.Decrypt(ConvertHexStringToByteArray(row["pekerjaan"].ToString())))) : row["pekerjaan"].ToString();
 
                     biodataText.AppendLine($"Image Path: {imagePath}");
                     biodataText.AppendLine($"NIK: {decryptedNIK}");
